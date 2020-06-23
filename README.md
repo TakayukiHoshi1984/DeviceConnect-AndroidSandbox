@@ -1,0 +1,2 @@
+# DeviceConnect-AndroidSandbox
+DeviceConnect-AndroidでGitHub Actionを使用する時のための動作確認用リポジトリ
