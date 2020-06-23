@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="host_ok">OK</string>
+    <string name="host_confirm">確認</string>
+    <string name="app_name_host">Host (Device Connect Device Plug-in)</string>
+
+    <string name="shuttered">シャッター</string>
+    <string name="started_video_recording">録画開始</string>
+    <string name="stopped_video_recording">録画終了</string>
+    <string name="zoomin">ズームイン</string>
+    <string name="zoomout">ズームアウト</string>
+
+    <string name="stop_btn">Stop</string>
+
+    <string name="touch_activity">Touch Activity</string>
+
+    <string name="canvas_profile_view_close_guidance">tap to close.</string>
+    <string name="keyevent_activity">Key Event Activity</string>
+
+    <string name="overlay_preview">PREVIEW</string>
+    <string name="overlay_preview_ticker">カメラを起動します</string>
+    <string name="overlay_preview_channel_id">org.deviceconnect.android.intent.action.preview.host</string>
+    <string name="overlay_preview_channel_title">Device Connect Preview</string>
+    <string name="overlay_preview_channel_message">DeviceConnectでのプレビュー</string>
+    <string name="overlay_preview_content_title">プレビュー配信サーバ [ %1$s ]</string>
+    <string name="overlay_preview_content_message">タップして撮影を停止します。</string>
+    <string name="overlay_preview_content_message2">カメラの映像をキャプチャしています。</string>
+
+    <string name="overlay_no_permission_title">パーミッション</string>
+    <string name="overlay_no_permission_message">オーバーレイの表示許可がありません。\n設定画面を開きますか？</string>
+    <string name="overlay_no_permission_ok">はい</string>
+    <string name="overlay_no_permission_no">いいえ</string>
+
+    <string name="overlay_preview_delivery">配信中</string>
+
+    <string name="overlay_preview_show">画面に表示</string>
+    <string name="overlay_preview_hide">画面から削除</string>
+    <string name="overlay_preview_stop">停止</string>
+
+    <string name="host_settings_title">Host設定</string>
+    <string name="host_settings_item_gps">GPS</string>
+    <string name="host_settings_item_jpeg_quality_preview">JPEG 品質</string>
+    <string name="host_settings_item_audio_preview">音声</string>
+    <string name="host_settings_item_srt_preview">SRT</string>
+    <string name="host_settings_item_demo_page">デモページ</string>
+    <string name="host_settings_item_audio_enabled">音声</string>
+    <string name="host_settings_item_audio_enabled_summary">プレビューの音声の有効化の設定を行います。</string>
+    <string name="host_settings_item_audio_bit_rate">ビットレート</string>
+    <string name="host_settings_item_audio_sample_rate">サンプルレート</string>
+    <string name="host_settings_item_audio_channel">チャンネル</string>
+    <string name="host_settings_item_audio_use_aec">エコーキャンセラー</string>
+    <string name="host_settings_item_audio_use_aec_summary">エコーキャンセラー有効化の設定を行います。</string>
+    <string name="pref_key_settings_gps">pref_key_settings_gps</string>
+    <string name="pref_key_settings_jpeg_quality_preview">pref_key_settings_jpeg_quality_preview</string>
+    <string name="pref_key_settings_audio_preview">pref_key_settings_audio_preview</string>
+    <string name="pref_key_settings_srt_preview">pref_key_settings_srt_preview</string>
+    <string name="pref_key_settings_demo_page">pref_key_settings_demo_page</string>
+    <string name="pref_key_settings_audio_enabled">pref_key_settings_audio_enabled</string>
+    <string name="pref_key_settings_audio_bit_rate">pref_key_settings_audio_bit_rate</string>
+    <string name="pref_key_settings_audio_sample_rate">pref_key_settings_audio_sample_rate</string>
+    <string name="pref_key_settings_audio_channel">pref_key_settings_audio_channel</string>
+    <string name="pref_key_settings_audio_use_aec">pref_key_settings_audio_use_aec</string>
+    <string-array name="host_settings_item_audio_sample_rate_list">
+        <item>96000</item>
+        <item>88200</item>
+        <item>64000</item>
+        <item>48000</item>
+        <item>44100</item>
+        <item>32000</item>
+        <item>24000</item>
+        <item>22050</item>
+        <item>16000</item>
+        <item>12000</item>
+        <item>11025</item>
+        <item>8000</item>
+        <item>7350</item>
+    </string-array>
+    <string-array name="host_settings_item_audio_channel_list">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="gps_settings_title">GPS設定</string>
+    <string name="gps_settings_body">このデバイスプラグインでは、GPS機能を使用しますので、端末のGPS設定画面より設定をONにしてください。</string>
+    <string name="gps_settings_button">設定画面を開く</string>
+    <string name="gps_settings_gps_detail">Android 6.0からGPSを使用するには、位置情報のパーミッションが必要になりました。\nこのプラグインを使用するためには、以下のパーミッションを許可してください。\n許可を取り消すには、アプリの設定画面から行うことができます。</string>
+    <string name="gps_settings_gps_permission">位置情報の許可</string>
+    <string name="gps_settings_gps_permission_on">取得済み</string>
+    <string name="gps_settings_gps_permission_off">取得</string>
+
+    <string name="recorder_settings_preview_jpeg_title">JPEG品質 - プレビュー</string>
+
+    <string name="demo_page_description">Host プラグインはカメラ機能等のデモページを提供します。\n\n外部ストレージにインストールすると Web ブラウザからデモページにアクセスできるようになります。</string>
+    <string name="demo_page_shortcut_label">カメラ</string>
+
+    <string name="host_setting_dialog_error_permission">GPSを使用するためのパーミッションが許可されていないために検索できません。\nGPS設定画面から位置情報の許可を取得してください。</string>
+    <string name="host_setting_dialog_disable_gps">GPSが無効になっているために検索できません。\nGPS設定画面からGPSを有効に設定してください。</string>
+    <string name="host_setting_gps_dialog_cancel">キャンセル</string>
+
+    <string name="host_setting_srt_option_auto">自動</string>
+
+    <string name="host_canvas_download_title">ダウンロード</string>
+    <string name="host_canvas_download_message">ダウンロード中...</string>
+
+    <string name="host_canvas_error_title">画像読み込み失敗</string>
+    <string name="host_canvas_error_oom_message">メモリーが足りません。</string>
+    <string name="host_canvas_error_not_found_message">画像が存在しません。</string>
+
+    <string name="host_notification_channel_id">org.deviceconnect.android.intent.action.notifiy.host</string>
+    <string name="host_notification_channel_title">Device Connect Notification</string>
+    <string name="host_notification_channel_desc">DeviceConnectの通知</string>
+
+    <string name="host_notification_canvas_warnning">Host Canvas Profileからの起動要求</string>
+    <string name="host_notification_touch_warnning">Host Touch Profileからの起動要求</string>
+    <string name="host_notification_keyevent_warnning">Host KeyEvent Profileからの起動要求</string>
+    <string name="host_notification_mediaplayer_warnning">Host MediaPlayer Profileからの起動要求</string>
+    <string name="host_notification_geolocation_warnning">Host Geolocation Profileからの起動要求</string>
+    <string name="host_notification_connection_warnning">Host Connection Profileからの起動要求</string>
+    <string name="host_notification_projection_warnning">Host Media Streaming Recording Profileからの起動要求</string>
+    <string name="host_notification_phone_warnning">Host Connection Profileからの起動要求</string>
+</resources>

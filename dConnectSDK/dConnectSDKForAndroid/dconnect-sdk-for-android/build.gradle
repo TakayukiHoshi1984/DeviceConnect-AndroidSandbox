@@ -1,0 +1,174 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.nanohttpd:nanohttpd-websocket:2.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'org.nanohttpd:nanohttpd-websocket:2.3.0'
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+}
+
+project.ext {
+    if (android.hasProperty('applicationVariants')) {
+        androidVariants = android.applicationVariants;
+    } else {
+        androidVariants = android.libraryVariants;
+    }
+}
+
+project.androidVariants.all { variant ->
+    task("generateJavadocForSDK", type: Javadoc, overwrite: true) {
+        title = "Device Connect SDK for Android"
+        description = "Generates Javadoc for $variant.name."
+        source = android.sourceSets.main.java.sourceFiles
+        configurations.implementation.setCanBeResolved(true)
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += configurations.implementation
+        destinationDir = new File("${project.getRootDir()}/DeviceConnectSDK-Javadoc/")
+
+        options {
+            links("http://docs.oracle.com/javase/jp/8/docs/api/");
+            linksOffline("http://d.android.com/reference", "${android.sdkDirectory}/docs/reference")
+            setMemberLevel(JavadocMemberLevel.PROTECTED)
+            docEncoding = 'UTF-8'
+            encoding = 'UTF-8'
+            charSet = 'UTF-8'
+        }
+
+        exclude '**/org/deviceconnect/android/logger/**'
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+
+}
+
+android.testVariants.all { variant ->
+    task("generateJavadocForSDKJUnit", type: Javadoc, overwrite: true) {
+        title = "Android Device Connect SDK Unit Test"
+        description = "Generates Javadoc for JUnit"
+        configurations.implementation.setCanBeResolved(true)
+        source = android.sourceSets.androidTest.java.sourceFiles
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += configurations.implementation
+        destinationDir = new File("${project.getRootDir()}/DeviceConnectSDK-JUnit-Javadoc/")
+        failOnError = false
+        options {
+            links("http://docs.oracle.com/javase/jp/8/docs/api/");
+            linksOffline("http://d.android.com/reference", "${android.sdkDirectory}/docs/reference")
+            setMemberLevel(JavadocMemberLevel.PUBLIC)
+            docEncoding = 'UTF-8'
+            encoding = 'UTF-8'
+            charSet = 'UTF-8'
+        }
+        exclude '**/org/deviceconnect/message/server/**'
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+}
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+
+def getVersionName = { ->
+    return "2.3.2" // Replace with version Name
+}
+
+def getArtificatId = { ->
+    return "dconnect-sdk-for-android" // Replace with library name ID
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId 'org.deviceconnect'
+            artifactId getArtificatId()
+            version getVersionName()
+            artifact("$buildDir/outputs/aar/${getArtificatId()}-release.aar")
+            pom.withXml {
+                final dependenciesNode = asNode().appendNode('dependencies')
+                ext.addDependency = { Dependency dep, String scope ->
+                    if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                        return
+                    final dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dep.group)
+                    dependencyNode.appendNode('artifactId', dep.name)
+                    dependencyNode.appendNode('version', dep.version)
+                    dependencyNode.appendNode('scope', scope)
+                    if (!dep.transitive) {
+                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                        exclusionNode.appendNode('groupId', '*')
+                        exclusionNode.appendNode('artifactId', '*')
+                    } else if (!dep.properties.excludeRules.empty) {
+                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                        dep.properties.excludeRules.each { ExcludeRule rule ->
+                            exclusionNode.appendNode('groupId', rule.group ?: '*')
+                            exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                        }
+                    }
+                }
+                configurations.compile.getDependencies().each { dep -> addDependency(dep, "compile") }
+                configurations.api.getDependencies().each { dep -> addDependency(dep, "compile") }
+                configurations.implementation.getDependencies().each { dep -> addDependency(dep, "compile") }
+            }
+        }
+
+    }
+
+    repositories {
+        maven {
+            name = "dConnectSDKForAndroid"
+            /** Configure path of your package repository on Github
+             *  Replace GITHUB_USERID with your/organisation Github userID and REPOSITORY with the repository name on GitHub
+             */
+            url = uri("https://maven.pkg.github.com/DeviceConnect/DeviceConnect-Android")
+
+            credentials {
+                /**Create github.properties in root project folder file with gpr.usr=GITHUB_USER_ID  & gpr.key=PERSONAL_ACCESS_TOKEN**/
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+    }
+}

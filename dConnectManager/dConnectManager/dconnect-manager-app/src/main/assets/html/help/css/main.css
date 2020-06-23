@@ -1,0 +1,130 @@
+li {
+    margin-bottom: 10px;
+}
+
+div.heading {
+    background-color: #9ECDF9;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-weight: bold;
+    border-left: 10px solid #008ee1;
+}
+
+div.content {
+    margin: 0px 0px;
+}
+
+div.link {
+    margin: 32px 4px 4px 4px;
+    line-height: 200%;
+}
+
+button {
+    font-size: 1.2em;
+    padding: 10px 50px;
+    margin: 4px;
+    background-color: #9ECDF9;
+    color: #000;
+    border: 1px solid #88F;
+
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+}
+
+button:active {
+    background-color:#69c;
+}
+
+img.start {
+    width: 80%;
+    border: solid 1px #000000;
+}
+
+img.dialog {
+    width: 40%;
+}
+
+div.image {
+    text-align: center;
+    margin: 12px;
+}
+
+div.wrapper {
+    padding: 20px;
+    position: relative;
+    top: -28px;
+}
+
+div.box {
+    position: relative;
+    background: #fff;
+    height: 32px;
+    width: 80%;
+    left: 40px;
+    padding: 12px;
+    border: 1px solid #666;
+    border-radius: 24px;
+    font-size: small;
+}
+
+div.box:after {
+    content: '';
+    position: absolute;
+    border-bottom: 15px solid #fff;
+    border-right:10px solid transparent;
+    border-left: 10px solid transparent;
+    top: -14px;
+    right: 48px;
+}
+
+div.box:before {
+    content: '';
+    position: absolute;
+    border-bottom: 16px solid #666;
+    border-right: 11px solid transparent;
+    border-left: 11px solid transparent;
+    top: -16px;
+    right: 47px;
+}
+
+div#battery {
+    font-size: 200%;
+}
+
+table.settings {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto
+    border-spacing: 12px;
+}
+
+td.name {
+    text-align: right;
+}
+
+td.value {
+    text-align: left;
+}
+
+span.label {
+    font-size: small;
+}
+
+ul.menu {
+    list-style-image: url('../summary/images/mark.png');
+}
+
+.select-box {
+    background: #FAFAFF;
+    border: 2px solid #008ee1;
+    border-radius: 5px;
+    color: #0C2245;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    text-indent: 5px;
+    vertical-align: middle;
+}

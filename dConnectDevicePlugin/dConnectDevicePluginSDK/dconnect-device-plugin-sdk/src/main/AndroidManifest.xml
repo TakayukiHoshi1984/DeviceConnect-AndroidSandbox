@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.deviceconnect.android">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application>
+        <!-- The following activities will be merged into a module that depends on this library. -->
+        <activity
+            android:name=".activity.IntentHandlerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+
+        <activity
+            android:name=".activity.PermissionRequestActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Dialog.Transparent"/>
+
+        <!-- LocalOAuth -->
+        <activity
+            android:name="org.deviceconnect.android.localoauth.activity.ConfirmAuthActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"/>
+
+        <activity
+            android:name="org.deviceconnect.android.localoauth.activity.AccessTokenListActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"/>
+
+        <meta-data
+            android:name="org.deviceconnect.android.deviceplugin.sdk"
+            android:resource="@xml/pluginsdk"/>
+    </application>
+</manifest>

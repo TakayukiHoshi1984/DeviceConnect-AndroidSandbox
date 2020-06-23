@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/index.css" type="text/css" />
+    <script type="text/javascript" src="js/dconnectsdk-2.2.0.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+    <script id="profileTable" type="text/x-template">
+        <section class="gridsDisplay">
+            {#content}
+        </section>
+    </script>
+
+    <script id="profileCell" type="text/x-template">
+        <a href="{#url}">
+            <div class="grid">
+                <div style="animation-delay: {#delay}s;">
+                    <img class="icon" src="{#icon}"><br>
+                    <div class="profileName">{#content}</div>
+                </div>
+            </div>
+        </a>
+    </script>
+
+    <title>サービス確認画面</title>
+</head>
+<body onload="main.init()">
+    <div id="profileList"></div>
+</body>
+</html>
