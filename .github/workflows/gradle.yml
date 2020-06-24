@@ -24,7 +24,7 @@ jobs:
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
           chmod +x ./dConnectManager/dConnectManager/gradlew
-          ./dConnectManager/dConnectManager/gradlew assembleDebug
+          ./dConnectManager/dConnectManager/dconnect-manager-app/gradlew assembleDebug
           ls dConnectManager/dConnectManager/build/outputs/apk
       - name: Emulator
         run: |
