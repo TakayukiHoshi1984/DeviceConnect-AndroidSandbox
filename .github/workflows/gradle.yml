@@ -26,7 +26,7 @@ jobs:
           cd dConnectManager/dConnectManager
           chmod +x ./gradlew
           ./gradlew assembleDebug
-          ls dConnectManager/dConnectManager/build/outputs
+          ls dconnect-manager-app/build/outputs/apk
       - name: Emulator
         run: |
           bash -c \echo -n no | /Users/runner/android-sdk/tools/bin/avdmanager create avd -n emulator --package "system-images;android-29;default;x86_64" --tag default
