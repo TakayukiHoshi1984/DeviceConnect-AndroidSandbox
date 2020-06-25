@@ -18,7 +18,7 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.5
-      - name: Build project
+      - name: Build Manager project 
         env:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
@@ -27,6 +27,15 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
           ls dconnect-manager-app/build/outputs/apk/debug
+      - name: Build Test Plug-in project 
+        env:
+          GPR_USER: ${{ secrets.GPR_USER }}
+          GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+        run: |
+          cd dConnectDevicePlugin/dConnectDeviceTest
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
+          ls app/build/outputs/apk/debug
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
           cmd: sh emulator-install.sh
