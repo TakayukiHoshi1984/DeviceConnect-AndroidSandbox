@@ -9,4 +9,4 @@ echo "Hellow World!"
 pwd
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
-./gradlew connectedAndroidTest --stacktrace
+sleep 30; ./gradlew connectedAndroidTest --stacktrace
