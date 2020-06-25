@@ -18,20 +18,20 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.5
-      - name: Build project
-        env:
-          GPR_USER: ${{ secrets.GPR_USER }}
-          GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-        run: |
-          cd dConnectManager/dConnectManager
-          chmod +x ./gradlew
-          ./gradlew assembleDebug
-          ls dconnect-manager-app/build/outputs/apk/debug
+#       - name: Build project
+#         env:
+#           GPR_USER: ${{ secrets.GPR_USER }}
+#           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#         run: |
+#           cd dConnectManager/dConnectManager
+#           chmod +x ./gradlew
+#           ./gradlew assembleDebug
+#           ls dconnect-manager-app/build/outputs/apk/debug
       - name: Emulator
         run: |
           bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager emulator tools platform-tools 'system-images;android-29;default;x86_64' > /dev/null
           bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager 'platforms;android-29' > /dev/null
-          /Users/runner/android-sdk/emulator/emulator -accel-check
+          bash /Users/runner/android-sdk/emulator/emulator -accel-check
           bash -c \echo -n no | /Users/runner/android-sdk/tools/bin/avdmanager create avd -n emulator --package "system-images;android-29;default;x86_64" --tag default
           /Users/runner/android-sdk/platform-tools/adb start-server
           bash -c \/Users/runner/android-sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo &
