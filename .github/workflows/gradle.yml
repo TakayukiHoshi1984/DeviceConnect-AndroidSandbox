@@ -18,29 +18,22 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.5
-#       - name: Build project
-#         env:
-#           GPR_USER: ${{ secrets.GPR_USER }}
-#           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-#         run: |
-#           cd dConnectManager/dConnectManager
-#           chmod +x ./gradlew
-#           ./gradlew assembleDebug
-#           ls dconnect-manager-app/build/outputs/apk/debug
-      - name: Emulator
+      - name: Build project
+        env:
+          GPR_USER: ${{ secrets.GPR_USER }}
+          GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
-          /Users/runner/android-sdk/tools/bin/sdkmanager --list
-          echo -n no | /Users/runner/android-sdk/tools/bin/sdkmanager "system-images;android-29;default;x86_64"       
-          /Users/runner/android-sdk/tools/bin/avdmanager create avd -n emulator --package "system-images;android-29;default;x86_64" --tag default
-          /Users/runner/android-sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo &
-          adb devices
-#       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
-#         with:
-#           cmd: ./gradlew connectedCheck --stacktrace
-#           api: 29
-#           tag: default
-#           abi: x86_64
-#           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+          cd dConnectManager/dConnectManager
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
+          ls dconnect-manager-app/build/outputs/apk/debug
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+        with:
+          cmd: pwd
+          api: 29
+          tag: default
+          abi: x86_64
+          cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
 #       - name: Generate Javadoc For SDK
 #         if: always()
 #         run: ./gradlew generateJavadocForSDK
