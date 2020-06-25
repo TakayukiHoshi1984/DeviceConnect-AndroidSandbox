@@ -29,8 +29,6 @@ jobs:
 #           ls dconnect-manager-app/build/outputs/apk/debug
       - name: Emulator
         run: |
-          bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager emulator tools platform-tools 'system-images;android-29;default;x86_64' > /dev/null
-          bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager 'platforms;android-29' > /dev/null
           bash -c \echo -n no | /Users/runner/android-sdk/tools/bin/avdmanager create avd -n emulator --package "system-images;android-29;default;x86_64" --tag default
           /Users/runner/android-sdk/platform-tools/adb start-server
           bash -c \/Users/runner/android-sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo &
