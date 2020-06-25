@@ -29,6 +29,8 @@ jobs:
 #           ls dconnect-manager-app/build/outputs/apk/debug
       - name: Emulator
         run: |
+          bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager --list
+          bash -c \/Users/runner/android-sdk/tools/bin/sdkmanager 'system-images;android-29;default;x86_64'
           /Users/runner/android-sdk/tools/bin/avdmanager create avd -n emulator --package "system-images;android-29;default;x86_64" --tag default
           bash -c \/Users/runner/android-sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo &
       - name: Sleep for 30 seconds
