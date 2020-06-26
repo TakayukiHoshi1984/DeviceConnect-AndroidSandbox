@@ -16,11 +16,11 @@ sudo /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 curl  -X GET \
       -H 'Origin: localhost' \
-      http://localhost:4035/gotapi/availability
+      http://10.0.2.2:4035/gotapi/availability
       
 curl  -X GET \
       -H 'Origin: localhost' \
-      http://localhost:4035/gotapi/serviceDiscovery
+      http://10.0.2.2:4035/gotapi/serviceDiscovery
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
 ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
