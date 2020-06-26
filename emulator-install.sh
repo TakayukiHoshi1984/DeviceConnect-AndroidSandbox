@@ -9,16 +9,19 @@ echo "Hellow World!"
 # /Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
 # logout
 
-/Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
+# /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
 # /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 
+# curl  -X GET \
+#       -H 'Origin: `ipconfig getifaddr en0`' \
+#       http://`ipconfig getifaddr en0`:4035/gotapi/availability
 curl  -X GET \
-      -H 'Origin: `ipconfig getifaddr en0`' \
-      http://`ipconfig getifaddr en0`:4035/gotapi/availability
+      -H 'Origin: localhost' \
+      http://localhost:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
