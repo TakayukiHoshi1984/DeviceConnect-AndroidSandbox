@@ -12,6 +12,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
+/Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 curl  -X GET \
       -H 'Origin: localhost' \
