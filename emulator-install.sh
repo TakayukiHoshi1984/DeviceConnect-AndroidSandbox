@@ -20,8 +20,8 @@ echo "Hellow World!"
 #       -H 'Origin: `ipconfig getifaddr en0`' \
 #       http://`ipconfig getifaddr en0`:4035/gotapi/availability
 curl  -X GET \
-      -H 'Origin: localhost' \
-      http://localhost:4035/gotapi/availability
+      -H 'Origin: 10.0.2.2' \
+      http://10.0.2.2　:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
