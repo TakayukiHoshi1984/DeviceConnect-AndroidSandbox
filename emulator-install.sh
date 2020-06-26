@@ -16,12 +16,12 @@ echo "Hellow World!"
 # /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 
-# curl  -X GET \
-#       -H 'Origin: `ipconfig getifaddr en0`' \
-#       http://`ipconfig getifaddr en0`:4035/gotapi/availability
 curl  -X GET \
-      -H 'Origin: 10.0.2.2' \
-      http://10.0.2.2　:4035/gotapi/availability
+      -H 'Origin: `ipconfig getifaddr en0`' \
+      http://`ipconfig getifaddr en0`:4035/gotapi/availability
+# curl  -X GET \
+#       -H 'Origin: 10.0.2.2' \
+#       http://10.0.2.2　:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
