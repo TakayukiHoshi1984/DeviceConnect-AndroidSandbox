@@ -8,7 +8,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
-/Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
+# /Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
@@ -16,11 +16,11 @@ echo "Hellow World!"
 
 curl  -X GET \
       -H 'Origin: localhost' \
-      http://10.0.2.2:4035/gotapi/availability
+      http://10.79.2.176:4035/gotapi/availability
       
 curl  -X GET \
       -H 'Origin: localhost' \
-      http://10.0.2.2:4035/gotapi/serviceDiscovery
+      http://10.79.2.176:4035/gotapi/serviceDiscovery
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
 ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
