@@ -14,8 +14,8 @@ echo "Hellow World!"
 
 
 curl  -X GET \
-      -H 'Origin: 10.0.2.2' \
-      http://10.0.2.2:4035/gotapi/availability
+      -H 'Origin: localhost' \
+      http://localhost:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
