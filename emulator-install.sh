@@ -8,11 +8,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
-/Users/runner/android-sdk/emulator/emulator -list-avds
-
-/Users/runner/android-sdk/emulator/emulator -avd emulator -dns-server 8.8.8.8
-
-sudo /Users/runner/android-sdk/platform-tools/adb shell ifconfig
+sudo /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
