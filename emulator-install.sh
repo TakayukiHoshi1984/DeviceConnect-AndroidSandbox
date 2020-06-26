@@ -14,13 +14,13 @@ echo "Hellow World!"
 
 
 curl  -X GET \
-      -H 'Origin: localhost' \
-      http://github.com:4035/gotapi/availability
+      -H 'Origin: 10.0.2.2' \
+      http://10.0.2.2:4035/gotapi/availability
       
-curl  -X GET \
-      -H 'Origin: 10.79.2.176' \
-      http://github.com:4035/gotapi/serviceDiscovery
-cd dConnectManager/dConnectManager
-chmod +x ./gradlew
-./gradlew dconnect-server-nano-httpd:connectedAndroidTest
-./gradlew dconnect-manager-app:connectedAndroidTest --stacktrace
+# curl  -X GET \
+#       -H 'Origin: 10.79.2.176' \
+#       http://github.com:4035/gotapi/serviceDiscovery
+# cd dConnectManager/dConnectManager
+# chmod +x ./gradlew
+# ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
+# ./gradlew dconnect-manager-app:connectedAndroidTest --stacktrace
