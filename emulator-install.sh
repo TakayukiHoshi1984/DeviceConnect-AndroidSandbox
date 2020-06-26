@@ -6,16 +6,16 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
-# /Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig en0 | grep 'inet\s' | cut -d ' ' -f 2 | exit
+/Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig | exit
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
 
-curl  -X GET \
-      -H 'Origin: localhost' \
-      http://127.0.0.1:4035/gotapi/availability
+# curl  -X GET \
+#       -H 'Origin: localhost' \
+#       http://127.0.0.1:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
