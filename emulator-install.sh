@@ -16,8 +16,8 @@ echo "Hellow World!"
 /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 curl  -X GET \
-      -H 'Origin: 127.0.0.1' \
-      http://127.0.0.1:4035/gotapi/availability
+      -H 'Origin: 10.0.2.2' \
+      http://10.0.2.2:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
