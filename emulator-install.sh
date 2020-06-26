@@ -8,9 +8,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
-/Users/runner/android-sdk/platform-tools/adb shell
-sudo ifconfig
-exit
+/Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
