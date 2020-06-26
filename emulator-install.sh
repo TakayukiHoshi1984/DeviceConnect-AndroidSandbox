@@ -6,8 +6,8 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
-/Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
-logout
+# /Users/runner/android-sdk/platform-tools/adb shell | sudo ifconfig
+# logout
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
 
@@ -16,8 +16,8 @@ logout
 /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 curl  -X GET \
-      -H 'Origin: localhost' \
-      http://localhost:4035/gotapi/availability
+      -H 'Origin: 127.0.0.1' \
+      http://127.0.0.1:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
