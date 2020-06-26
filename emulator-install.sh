@@ -10,9 +10,9 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/emulator/emulator -list-avds
 
-/Users/runner/android-sdk/emulator/emulator -avd emulator-5554 -dns-server 8.8.8.8
+/Users/runner/android-sdk/emulator/emulator -avd emulator -dns-server 8.8.8.8
 
-/Users/runner/android-sdk/platform-tools/adb shell ifconfig
+sudo /Users/runner/android-sdk/platform-tools/adb shell ifconfig
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
