@@ -42,7 +42,7 @@ jobs:
           api: 29
           tag: default
           abi: x86_64
-          cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo -http-proxy http://10.0.2.2:4035
+          cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
 #       - name: Generate Javadoc For SDK
 #         if: always()
 #         run: ./gradlew generateJavadocForSDK
