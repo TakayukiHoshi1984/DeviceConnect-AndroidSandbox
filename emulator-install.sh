@@ -15,7 +15,10 @@ echo "Hellow World!"
 
 # /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
-telnet `ipconfig getifaddr en0` 5554 ; redir add tcp:4035:4035 ; list
+cat /Users/runner/.emulator_console_auth_token
+
+
+# telnet localhost 5554 ; redir add tcp:4035:4035 ; list
 
 
 # curl  -X GET \
