@@ -15,6 +15,7 @@ echo "Hellow World!"
 
 # /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
+sleep 5
 
 # curl  -X GET \
 #       -H 'Origin: `ipconfig getifaddr en0`' \
