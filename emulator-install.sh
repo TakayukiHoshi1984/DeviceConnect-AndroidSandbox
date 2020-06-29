@@ -18,15 +18,19 @@ echo "Hellow World!"
 AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
 
-telnet localhost 5554 | auth $AUTH | redir add tcp:4035:4035 | list | exit
+telnet 127.0.0.1 5554
+auth $AUTH
+redir add tcp:4035:4035
+list 
+exit
 
 
 # curl  -X GET \
 #       -H 'Origin: `ipconfig getifaddr en0`' \
 #       http://`ipconfig getifaddr en0`:4035/gotapi/availability
 curl  -X GET \
-      -H 'Origin: localhost' \
-      http://localhost:4035/gotapi/availability
+      -H 'Origin: 127.0.0.1' \
+      http://127.0.0.1:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
