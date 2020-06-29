@@ -20,9 +20,9 @@ AUTH=`cat /Users/runner/.emulator_console_auth_token`
 echo $AUTH 
 
 
-(sleep 1 ; ifconfig ; sleep 1  ; quit)  | adb shell
+(sleep 1 ; sudo ifconfig ; sleep 1  ; exit)  | adb shell
 
-(sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; quit)  | telnet localhost 5554
+(sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
 
 # curl  -X GET \
