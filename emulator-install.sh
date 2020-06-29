@@ -19,7 +19,9 @@ AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
 echo $AUTH 
 
-(sleep 5 ; redir add tcp:4035:4035 ; sleep 5 ; list ; sleep 5 ; exit) | (sleep 5 ; auth $AUTH) | telnet 127.0.0.1 5554
+# (sleep 5 ; redir add tcp:4035:4035 ; sleep 5 ; list ; sleep 5 ; exit) 
+
+(sleep 5 ; auth $AUTH) | telnet 127.0.0.1 5554
 
 
 # curl  -X GET \
