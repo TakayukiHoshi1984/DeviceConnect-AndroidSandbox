@@ -19,15 +19,15 @@ AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
 echo $AUTH 
 
-(sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; echo list ; sleep 1 ; exit)  | telnet 127.0.0.1 5554
+(sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
 
 # curl  -X GET \
 #       -H 'Origin: `ipconfig getifaddr en0`' \
 #       http://`ipconfig getifaddr en0`:4035/gotapi/availability
 curl  -X GET \
-      -H 'Origin: 127.0.0.1' \
-      http://127.0.0.1:4035/gotapi/availability
+      -H 'Origin: localhost' \
+      http://localhost:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
