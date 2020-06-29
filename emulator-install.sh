@@ -6,7 +6,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
- /Users/runner/android-sdk/platform-tools/adb shell | ipconfig getifaddr en0
+ /Users/runner/android-sdk/platform-tools/adb shell ; ipconfig getifaddr en0 ; exit
 # logout
 
 # /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/org.deviceconnect.android.manager.setting.ServiceListActivity
