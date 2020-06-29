@@ -17,8 +17,7 @@ echo "Hellow World!"
 
 AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
-
-telnet 127.0.0.1 5554 ; sleep 10 ; auth $AUTH ; sleep 10 ; redir add tcp:4035:4035 ; sleep 10 ; list ; sleep 10 ; exit
+(sleep 10 ; auth $AUTH ; sleep 10 ; redir add tcp:4035:4035 ; sleep 10 ; list ; sleep 10 ; exit) | telnet 127.0.0.1 5554
 
 
 # curl  -X GET \
