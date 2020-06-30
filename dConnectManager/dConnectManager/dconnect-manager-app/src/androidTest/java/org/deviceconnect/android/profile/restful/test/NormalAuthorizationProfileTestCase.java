@@ -107,7 +107,7 @@ public class NormalAuthorizationProfileTestCase extends RESTfulDConnectTestCase 
         uri += "?clientId=" + URLEncoder.encode(clientId, "UTF-8");
         uri += "&scope=" + URLEncoder.encode(combineStr(scopes), "UTF-8");
         uri += "&applicationName=" + URLEncoder.encode(appName, "UTF-8");
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.get(uri);
         assertThat(response, is(notNullValue()));
         assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));
@@ -143,7 +143,7 @@ public class NormalAuthorizationProfileTestCase extends RESTfulDConnectTestCase 
         uri += "?clientId=" + URLEncoder.encode(clientId, "UTF-8");
         uri += "&scope=" + URLEncoder.encode(combineStr(scopes), "UTF-8");
         uri += "&applicationName=" + URLEncoder.encode(appName, "UTF-8");
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.get(uri);
         assertThat(response, is(notNullValue()));
         assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));

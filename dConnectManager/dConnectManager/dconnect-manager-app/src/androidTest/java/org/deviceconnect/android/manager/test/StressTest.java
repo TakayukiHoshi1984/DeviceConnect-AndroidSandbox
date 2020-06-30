@@ -111,7 +111,7 @@ public class StressTest extends RESTfulDConnectTestCase {
             body.add("serviceId", new StringEntity(getServiceId()));
             body.add("accessToken", new StringEntity(getAccessToken()));
             body.add("data", new FileEntity(writeFile));
-
+            perform();
             DConnectResponseMessage response = mDConnectSDK.post(builder.build(), body);
             assertThat(response, is(notNullValue()));
             assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));

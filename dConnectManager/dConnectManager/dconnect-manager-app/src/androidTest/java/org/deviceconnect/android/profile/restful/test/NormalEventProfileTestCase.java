@@ -80,7 +80,7 @@ public class NormalEventProfileTestCase extends RESTfulDConnectTestCase {
             latch.await(10, TimeUnit.SECONDS);
 
             assertThat(connect.get(), is(true));
-
+            perform();
             mDConnectSDK.addEventListener(uri, new DConnectSDK.OnEventListener() {
                 @Override
                 public void onMessage(DConnectEventMessage message) {

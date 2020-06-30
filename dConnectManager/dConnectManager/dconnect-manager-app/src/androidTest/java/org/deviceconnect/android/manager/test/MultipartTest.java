@@ -49,7 +49,7 @@ public class MultipartTest extends RESTfulDConnectTestCase {
         MultipartEntity body = new MultipartEntity();
         body.add("serviceId", new StringEntity(getServiceId()));
         body.add("accessToken", new StringEntity(getAccessToken()));
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.post(builder.build(), body);
         assertThat(response, is(notNullValue()));
         assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));
@@ -75,7 +75,7 @@ public class MultipartTest extends RESTfulDConnectTestCase {
         MultipartEntity body = new MultipartEntity();
         body.add("serviceId", new StringEntity(getServiceId()));
         body.add("accessToken", new StringEntity(getAccessToken()));
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.put(builder.build(), body);
         assertThat(response, is(notNullValue()));
         assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));
@@ -101,7 +101,7 @@ public class MultipartTest extends RESTfulDConnectTestCase {
 
         MultipartEntity body = new MultipartEntity();
         body.add("data", new BinaryEntity(new byte[0]));
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.post(builder.build(), body);
         assertThat(response, is(notNullValue()));
         assertThat(response.getResult(), is(DConnectMessage.RESULT_OK));

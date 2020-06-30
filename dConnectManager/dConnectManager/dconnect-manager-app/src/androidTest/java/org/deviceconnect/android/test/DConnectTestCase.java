@@ -108,25 +108,7 @@ public abstract class DConnectTestCase {
         if (isLocalOAuth()) {
             // アクセストークン取得
             if (sAccessToken == null) {
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-
-                    UiObject2 obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
-                    if (obj != null) {
-                        obj.click();
-                    } else {
-                        obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
-                        if (obj != null) {
-                            obj.click();
-                        }
-                    }
-                    Log.e("ABC", "cccc");
-                }).start();
+                perform();
                 sAccessToken = requestAccessToken(PROFILES);
                 assertNotNull(sAccessToken);
             }
@@ -135,6 +117,27 @@ public abstract class DConnectTestCase {
             }
             waitForFoundTestService();
         }
+    }
+
+    protected void perform() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+            UiObject2 obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
+            if (obj != null) {
+                obj.click();
+            } else {
+                obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
+                if (obj != null) {
+                    obj.click();
+                }
+            }
+        }).start();
     }
 
     @After

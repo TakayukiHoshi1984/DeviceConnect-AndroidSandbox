@@ -52,7 +52,7 @@ public class JSONConversionTest extends RESTfulDConnectTestCase {
         builder.append(DConnectMessage.EXTRA_SERVICE_ID + "=" + getServiceId());
         builder.append("&");
         builder.append(DConnectMessage.EXTRA_ACCESS_TOKEN + "=" + getAccessToken());
-
+        perform();
         DConnectResponseMessage response = mDConnectSDK.get(builder.toString());
         assertThat(response, is(notNullValue()));
         DConnectMessage root = response.getMessage("extra");
