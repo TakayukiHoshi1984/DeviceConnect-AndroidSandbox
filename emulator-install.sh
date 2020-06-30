@@ -13,15 +13,15 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
-/Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
+# /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
-# AUTH=`cat /Users/runner/.emulator_console_auth_token`
+AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
-# echo $AUTH 
+echo $AUTH 
 
-# sudo netstat
+sudo netstat
 
-# (sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
+(sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
 
 # curl  -X GET \
