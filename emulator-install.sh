@@ -19,15 +19,14 @@ AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
 echo $AUTH 
 
-sudo netstat
-
 (sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
+(sleep 1 ; su ; sleep 1 ; ifconfig ; sleep 1 ; exit ; sleep 1 ; exit)  | adb shell
 
-curl  -X GET \
-      -H 'Origin: `ipconfig getifaddr en0`' \
-      http://`ipconfig getifaddr en0`:4035/gotapi/availability
-# curl  -X GET -H 'Origin: 127.0.0.1' http://127.0.0.1:4035/gotapi/availability
+# curl  -X GET \
+#       -H 'Origin: `ipconfig getifaddr en0`' \
+#       http://`ipconfig getifaddr en0`:4035/gotapi/availability
+curl  -X GET -H 'Origin: 10.0.2.15' http://10.0.2.15:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
