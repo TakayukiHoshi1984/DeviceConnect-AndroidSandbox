@@ -6,10 +6,11 @@
  */
 package org.deviceconnect.android.manager;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.deviceconnect.android.deviceplugin.host.HostDeviceApplication;
+//import org.deviceconnect.android.deviceplugin.host.HostDeviceApplication;
 import org.deviceconnect.android.logger.AndroidHandler;
 import org.deviceconnect.android.manager.core.DConnectConst;
 import org.deviceconnect.android.manager.core.DConnectSettings;
@@ -27,7 +28,7 @@ import java.util.logging.SimpleFormatter;
  *
  * @author NTT DOCOMO, INC.
  */
-public class DConnectApplication extends HostDeviceApplication {
+public class DConnectApplication extends Application {
 
     /**
      * Device Connect システム設定.
