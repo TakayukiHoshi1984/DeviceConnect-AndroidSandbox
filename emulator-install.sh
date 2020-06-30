@@ -21,7 +21,7 @@ echo $AUTH
 
 (sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
-IP=`adb shell ifconfig`
+IP=`adb shell sudo ifconfig`
 
 echo $IP
 # (sleep 1 ; sudo ; sleep 1 ; ifconfig ; sleep 1 ; exit ; sleep 1 ; exit)  | adb shell
