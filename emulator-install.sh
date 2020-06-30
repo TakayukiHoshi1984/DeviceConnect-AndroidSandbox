@@ -26,7 +26,7 @@ echo $AUTH
 # curl  -X GET \
 #       -H 'Origin: `ipconfig getifaddr en0`' \
 #       http://`ipconfig getifaddr en0`:4035/gotapi/availability
-curl  -X GET -H 'Origin: 10.0.2.15' http://10.0.2.15:4035/gotapi/availability
+curl  -X GET -H 'Origin: 10.0.2.16' http://10.0.2.16:4035/gotapi/availability
       
 # curl  -X GET \
 #       -H 'Origin: 10.79.2.176' \
