@@ -7,8 +7,17 @@
 package org.deviceconnect.android.test;
 
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.Until;
+
+import org.deviceconnect.android.manager.R;
 import org.deviceconnect.android.profile.AuthorizationProfile;
 import org.deviceconnect.android.profile.ServiceDiscoveryProfile;
 import org.deviceconnect.message.DConnectMessage;
@@ -23,6 +32,15 @@ import org.junit.Before;
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.deviceconnect.android.manager.core.request.ServiceDiscoveryRequest.TIMEOUT;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNotNull;
 
@@ -90,6 +108,25 @@ public abstract class DConnectTestCase {
         if (isLocalOAuth()) {
             // アクセストークン取得
             if (sAccessToken == null) {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+                    UiObject2 obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
+                    if (obj != null) {
+                        obj.click();
+                    } else {
+                        obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
+                        if (obj != null) {
+                            obj.click();
+                        }
+                    }
+                    Log.e("ABC", "cccc");
+                }).start();
                 sAccessToken = requestAccessToken(PROFILES);
                 assertNotNull(sAccessToken);
             }
