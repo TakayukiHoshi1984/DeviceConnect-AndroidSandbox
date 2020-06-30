@@ -13,7 +13,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
-# /Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
+/Users/runner/android-sdk/platform-tools/adb forward tcp:4035 tcp:4035
 
 AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
