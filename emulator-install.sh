@@ -19,6 +19,7 @@ AUTH=`cat /Users/runner/.emulator_console_auth_token`
 
 echo $AUTH 
 
+sudo netstat
 
 (sleep 1 ; echo auth $AUTH ; sleep 1 ; echo redir add tcp:4035:4035 ; sleep 1 ; exit)  | telnet localhost 5554
 
