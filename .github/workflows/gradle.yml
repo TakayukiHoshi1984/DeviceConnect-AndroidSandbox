@@ -23,7 +23,6 @@ jobs:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
-          brew install telnet
           cd dConnectManager/dConnectManager
           chmod +x ./gradlew
           ./gradlew assembleDebug
@@ -44,6 +43,18 @@ jobs:
           tag: default
           abi: x86_64
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Pack test result and document in zip file
+        if: always()
+        run: |
+          cd DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
+          sudo mv connected code-coverage-report
+          sudo zip -r release.zip ./code-coverage-report
+      - name: Archive code coverage results
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage-report
+          path: DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/release.zip
 #       - name: Generate Javadoc For SDK
 #         if: always()
 #         run: ./gradlew generateJavadocForSDK
