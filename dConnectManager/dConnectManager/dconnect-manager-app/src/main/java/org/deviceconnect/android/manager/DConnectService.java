@@ -17,7 +17,7 @@ import android.security.KeyChain;
 import androidx.annotation.Nullable;
 import android.util.Log;
 
-//import org.deviceconnect.android.deviceplugin.host.HostDevicePlugin;
+import org.deviceconnect.android.deviceplugin.host.HostDevicePlugin;
 import org.deviceconnect.android.localoauth.DevicePluginXmlUtil;
 import org.deviceconnect.android.manager.core.DConnectManager;
 import org.deviceconnect.android.manager.core.DConnectSettings;
@@ -213,13 +213,13 @@ public class DConnectService extends Service {
                 if (DEBUG) {
                     Log.i(TAG, "Finish search plugin.");
                 }
-//                try {
-//                    addDevicePlugin();
-//                } catch (Exception e) {
-//                    if (DEBUG) {
-//                        Log.e(TAG, "search plugin error.", e);
-//                    }
-//                }
+                try {
+                    addDevicePlugin();
+                } catch (Exception e) {
+                    if (DEBUG) {
+                        Log.e(TAG, "search plugin error.", e);
+                    }
+                }
             }
 
             @Override
@@ -271,36 +271,36 @@ public class DConnectService extends Service {
     /**
      * Hostプラグインを追加します.
      */
-//    private void addDevicePlugin() {
-//        String packageName = getPackageName();
-//        String className = HostDevicePlugin.class.getName();
-//
-//        DevicePlugin plugin;
-//        try {
-//            plugin = new DevicePlugin.Builder(this)
-//                    .setClassName(className)
-//                    .setPackageName(packageName)
-//                    .setConnectionType(ConnectionType.DIRECT)
-//                    .setDeviceName(getString(R.string.app_name_host))
-//                    .setPluginIconId(R.drawable.dconnect_icon)
-//                    .setVersionName(org.deviceconnect.android.deviceplugin.host.BuildConfig.VERSION_NAME)
-//                    .setPluginXml(DevicePluginXmlUtil.getXml(getApplicationContext(),
-//                            R.xml.org_deviceconnect_android_deviceplugin_host))
-//                    .setPluginId(DConnectUtil.toMD5(packageName + className))
-//                    .setPluginSdkVersionName(VersionName.parse("2.0.0"))
-//                    .addProviderAuthority("org.deviceconnect.android.deviceplugin.host.provider.included")
-//                    .build();
-//            mManager.getPluginManager().addDevicePlugin(plugin);
-//        } catch (UnsupportedEncodingException e) {
-//            if (DEBUG) {
-//                Log.e(TAG, "add plugin error.", e);
-//            }
-//        } catch (NoSuchAlgorithmException e) {
-//            if (DEBUG) {
-//                Log.e(TAG, "add plugin error.", e);
-//            }
-//        }
-//    }
+    private void addDevicePlugin() {
+        String packageName = getPackageName();
+        String className = HostDevicePlugin.class.getName();
+
+        DevicePlugin plugin;
+        try {
+            plugin = new DevicePlugin.Builder(this)
+                    .setClassName(className)
+                    .setPackageName(packageName)
+                    .setConnectionType(ConnectionType.DIRECT)
+                    .setDeviceName(getString(R.string.app_name_host))
+                    .setPluginIconId(R.drawable.dconnect_icon)
+                    .setVersionName(org.deviceconnect.android.deviceplugin.host.BuildConfig.VERSION_NAME)
+                    .setPluginXml(DevicePluginXmlUtil.getXml(getApplicationContext(),
+                            R.xml.org_deviceconnect_android_deviceplugin_host))
+                    .setPluginId(DConnectUtil.toMD5(packageName + className))
+                    .setPluginSdkVersionName(VersionName.parse("2.0.0"))
+                    .addProviderAuthority("org.deviceconnect.android.deviceplugin.host.provider.included")
+                    .build();
+            mManager.getPluginManager().addDevicePlugin(plugin);
+        } catch (UnsupportedEncodingException e) {
+            if (DEBUG) {
+                Log.e(TAG, "add plugin error.", e);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            if (DEBUG) {
+                Log.e(TAG, "add plugin error.", e);
+            }
+        }
+    }
     /**
      * DConnectManagerを停止します.
      */

@@ -97,7 +97,7 @@ dependencies {
     implementation 'org.deviceconnect:dconnect-device-plugin-sdk:2.8.4'
     implementation project(':dconnect-manager-core')
     implementation project(':dconnect-server-nano-httpd')
-//    implementation project(':dconnect-device-plugin-host')
+    implementation project(':dconnect-device-plugin-host')
 
     androidTestImplementation('androidx.test.ext:junit:1.1.1') {
         exclude module: 'animated-vector-drawable'
