@@ -46,7 +46,7 @@ jobs:
       - name: Pack test result and document in zip file
         if: always()
         run: |
-          cd DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
+          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
           sudo mv connected code-coverage-report
           sudo zip -r release.zip ./code-coverage-report
       - name: Archive code coverage results
