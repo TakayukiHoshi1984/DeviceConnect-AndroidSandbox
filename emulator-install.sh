@@ -31,5 +31,4 @@ echo "Hellow World!"
 #       http://github.com:4035/gotapi/serviceDiscovery
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
-./gradlew dconnect-server-nano-httpd:connectedAndroidTest
-./gradlew dconnect-manager-app:connectedAndroidTest --stacktrace
+./gradlew connectedCheck --stacktrace
