@@ -44,7 +44,6 @@ jobs:
           tag: default
           abi: x86_64
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-          disableAnimations: true
 #       - name: Generate Javadoc For SDK
 #         if: always()
 #         run: ./gradlew generateJavadocForSDK
