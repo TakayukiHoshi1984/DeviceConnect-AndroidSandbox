@@ -40,7 +40,7 @@ jobs:
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
           cmd: sh emulator-install.sh
-          api: 29
+          api: 28
           tag: default
           abi: x86_64
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
