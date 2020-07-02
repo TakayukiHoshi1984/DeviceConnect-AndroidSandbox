@@ -2,14 +2,14 @@
 
 echo "Hellow World!"
 
+/Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectManager/dConnectManager/dconnect-manager-app/build/outputs/apk/debug/dconnect-manager-app-debug.apk
-/Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
-sleep 5
+# sleep 5
 
 # AUTH=`cat /Users/runner/.emulator_console_auth_token`
 #
@@ -32,4 +32,4 @@ sleep 5
 #       http://github.com:4035/gotapi/serviceDiscovery
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
-./gradlew connectedCheck --stacktrace
+./gradlew dconnect-manager-app:connectedAndroidTest
