@@ -42,7 +42,7 @@ jobs:
           api: 28
           tag: default
           abi: x86_64
-          cmdOptions: -partition-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+          cmdOptions: -partition-size 512 -memory 2048 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Pack test result and document in zip file
         if: always()
         run: |
