@@ -11,13 +11,13 @@ echo "Hellow World!"
 
 sleep 5
 
-/Users/runner/android-sdk/platform-tools/adb shell am force-stop org.deviceconnect.android.manager
+# /Users/runner/android-sdk/platform-tools/adb shell am force-stop org.deviceconnect.android.manager
 
-sleep 5
+# sleep 5
 
-/Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
+# /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
-sleep 5
+# sleep 5
 
 # AUTH=`cat /Users/runner/.emulator_console_auth_token`
 #
