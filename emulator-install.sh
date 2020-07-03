@@ -13,7 +13,7 @@ sleep 1
 
 /Users/runner/android-sdk/platform-tools/adb shell am force-stop org.deviceconnect.android.manager
 
-sleep 1りh
+sleep 1
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
