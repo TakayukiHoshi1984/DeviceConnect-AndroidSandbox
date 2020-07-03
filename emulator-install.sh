@@ -9,7 +9,7 @@ echo "Hellow World!"
 
 /Users/runner/android-sdk/platform-tools/adb shell am start -n org.deviceconnect.android.manager/.DConnectLaunchActivity -d gotapi://start/server
 
-# sleep 5
+sleep 5
 
 # /Users/runner/android-sdk/platform-tools/adb shell am force-stop org.deviceconnect.android.manager
 
