@@ -108,7 +108,7 @@ public class StressTest extends RESTfulDConnectTestCase {
      */
     @Test
     public void testBigData() throws Exception {
-        final int fileSize = 1024 * 1024 * 1024;
+        final int fileSize = 1024 * 1024 * 500;//1024;
         final File writeFile = writeBigFile("bigData", ".dat", fileSize);
         try {
             DConnectSDK.URIBuilder builder = mDConnectSDK.createURIBuilder();
