@@ -130,7 +130,11 @@ public abstract class DConnectTestCase {
 
             UiObject2 obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
             if (obj != null) {
-                obj.click();
+                try {
+                  obj.click();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
             } else {
                 obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
                 if (obj != null) {
