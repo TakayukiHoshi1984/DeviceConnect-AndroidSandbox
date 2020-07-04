@@ -132,9 +132,14 @@ public abstract class DConnectTestCase {
             if (obj != null) {
                 obj.click();
             } else {
+                device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
                 obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
                 if (obj != null) {
-                    obj.click();
+                    try {
+                     obj.click();
+                    } catch (Exceptione e) {
+                     e.printStackTrace();
+                    }
                 }
             }
         }).start();
