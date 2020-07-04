@@ -44,6 +44,12 @@ jobs:
           abi: x86
           hardwareProfile: -c 4096M
           cmdOptions: -memory 4096 -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Save logcat output
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: logcat
+          path: artifacts/logcat.log
       - name: Pack test result and document in zip file
         if: always()
         run: |
