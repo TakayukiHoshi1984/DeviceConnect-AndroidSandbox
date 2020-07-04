@@ -128,12 +128,11 @@ public abstract class DConnectTestCase {
             }
             UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-            UiObject2 obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
+            UiObject2 obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
             if (obj != null) {
                 obj.click();
             } else {
-                device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-                obj = device.wait(Until.findObject(By.text("ACCEPT")), TIMEOUT);
+                obj = device.wait(Until.findObject(By.text("同意する")), TIMEOUT);
                 if (obj != null) {
                     try {
                      obj.click();
