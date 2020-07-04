@@ -41,7 +41,7 @@ jobs:
           cmd: sh emulator-install.sh
           api: 28
           tag: default
-          abi: x86_64
+          abi: x86
           hardwareProfile: -c 4096M
           cmdOptions: -memory 4096 -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Pack test result and document in zip file
