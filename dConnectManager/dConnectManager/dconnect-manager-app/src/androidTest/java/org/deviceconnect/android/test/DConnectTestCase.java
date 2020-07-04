@@ -122,7 +122,7 @@ public abstract class DConnectTestCase {
     protected void perform() {
         new Thread(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -136,7 +136,7 @@ public abstract class DConnectTestCase {
                 if (obj != null) {
                     try {
                      obj.click();
-                    } catch (Exceptione e) {
+                    } catch (Exception e) {
                      e.printStackTrace();
                     }
                 }
