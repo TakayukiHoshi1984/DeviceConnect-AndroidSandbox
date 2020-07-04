@@ -43,7 +43,7 @@ jobs:
           tag: default
           abi: x86
           hardwareProfile: -c 4096M
-          cmdOptions: -memory 4096 -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+          cmdOptions: -partition-size 512 -memory 4096 -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Save logcat output
         uses: actions/upload-artifact@master
         if: failure()
