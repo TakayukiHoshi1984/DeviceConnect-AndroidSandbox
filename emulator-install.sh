@@ -34,7 +34,7 @@ cd dConnectManager/dConnectManager
 chmod +x ./gradlew
 
 # HTTPサーバのJUnit実行
-./gradlew dconnect-server-nano-httpd:connectedAndroidTest
+# ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
 
 # ManagerのJUnit実行
 ./gradlew dconnect-manager-app:connectedAndroidTest
