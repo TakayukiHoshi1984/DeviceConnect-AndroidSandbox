@@ -36,7 +36,7 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
           ls app/build/outputs/apk/debug
-          cd ../../dConnectManager
+          cd ../dConnectManager
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
           cmd: sudo ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
