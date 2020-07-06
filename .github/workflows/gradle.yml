@@ -38,6 +38,20 @@ jobs:
           ls app/build/outputs/apk/debug
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
+          cmd: ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
+          api: 28
+          tag: default
+          abi: x86
+          hardwareProfile: -c 4096M
+          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Save logcat output
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: logcat
+          path: artifacts/logcat.log
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+        with:
           cmd: sh emulator-install.sh
           api: 28
           tag: default
@@ -50,17 +64,29 @@ jobs:
         with:
           name: logcat
           path: artifacts/logcat.log
-      - name: Pack test result and document in zip file
+      - name: Pack test result and document in zip file(Manager Test)
         if: always()
         run: |
           cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
-          sudo mv connected code-coverage-report
-          sudo zip -r release.zip ./code-coverage-report
-      - name: Archive code coverage results
+          sudo mv connected dconnect-manager-test-report
+          sudo zip -r release.zip ./dconnect-manager-test-report
+      - name: Archive code coverage results(Manager Test)
         if: always()
         uses: actions/upload-artifact@v1
         with:
-          name: code-coverage-report
+          name: dconnect-manager-test-report
+          path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/release.zip
+      - name: Pack test result and document in zip file(Nano-Httpd Test)
+        if: always()
+        run: |
+          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests
+          sudo mv connected dconnect-nano-httpd-test-report
+          sudo zip -r release.zip ./dconnect-nano-httpd-test-report
+      - name: Archive code coverage results(Nano-Httpd Test)
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: dconnect-nano-httpd-test-report
           path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/release.zip
 #       - name: Generate Javadoc For SDK
 #         if: always()
