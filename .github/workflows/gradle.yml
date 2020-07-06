@@ -6,8 +6,8 @@ name: dConnectManager CI
 on: [push, pull_request]
 
 jobs:
-  release:
-    name: release
+  manager:
+    name: Manager Release
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -38,20 +38,6 @@ jobs:
           ls app/build/outputs/apk/debug
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: sh nano-httpd-test.sh
-          api: 28
-          tag: default
-          abi: x86
-          hardwareProfile: -c 4096M
-          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-      - name: Save logcat output(dconnect-nano-httpd-test-report)
-        uses: actions/upload-artifact@master
-        if: failure() 
-        with:
-          name: logcat
-          path: artifacts/dconnect-nano-httpd-test-report.log
-      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
-        with:
           cmd: sh emulator-install.sh
           api: 28
           tag: default
@@ -76,6 +62,41 @@ jobs:
         with:
           name: dconnect-manager-test-report
           path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-manager-test-report.zip
+  server:
+    name: dConnectServer Release
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Install Android SDK
+        uses: malinskiy/action-android/install-sdk@release/0.0.5
+      - name: Build Manager project 
+        env:
+          GPR_USER: ${{ secrets.GPR_USER }}
+          GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+        run: |
+          cd dConnectManager/dConnectManager
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
+          ls dconnect-manager-app/build/outputs/apk/debug
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+        with:
+          cmd: sh nano-httpd-test.sh
+          api: 28
+          tag: default
+          abi: x86
+          hardwareProfile: -c 4096M
+          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Save logcat output(dconnect-nano-httpd-test-report)
+        uses: actions/upload-artifact@master
+        if: failure() 
+        with:
+          name: logcat
+          path: artifacts/dconnect-nano-httpd-test-report.log
       - name: Pack test result and document in zip file(Nano-Httpd Test)
         if: always()
         run: |
