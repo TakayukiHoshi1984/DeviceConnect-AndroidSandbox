@@ -1040,7 +1040,6 @@ public class DConnectServerNanoHttpdTest {
             HttpUtils.Response response = HttpUtils.post(HTTP_LOCALHOST_PORT + path, data);
             assertThat(response, is(notNullValue()));
             assertThat(response.getStatusCode(), is(400));
-                     fail("result:" + response.getBody());
 
             assertThat(response.getBody(), is(notNullValue()));
 
