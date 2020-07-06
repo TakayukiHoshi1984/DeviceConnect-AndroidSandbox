@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Hellow World!"
+echo "Start Manager Test"
 
 /Users/runner/android-sdk/platform-tools/adb install -r ./dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
 
@@ -30,14 +30,10 @@ sleep 5
 # echo $IP
 # (sleep 1 ; sudo ; sleep 1 ; ifconfig ; sleep 1 ; exit ; sleep 1 ; exit)  | adb shell
 
-# curl  -X GET \
-#       -H 'Origin: `ipconfig getifaddr en0`' \
-#       http://`ipconfig getifaddr en0`:4035/gotapi/availability
-# curl  -X GET -H 'Origin: $IP' http://$IP:4035/gotapi/availability
-
-# curl  -X GET \
-#       -H 'Origin: 10.79.2.176' \
-#       http://github.com:4035/gotapi/serviceDiscovery
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
+
+# HTTPサーバのJUnit実行
+./gradlew dconnect-server-nano-httpd:connectedAndroidTest
+# ManagerのJUnit実行
 ./gradlew dconnect-manager-app:connectedAndroidTest
