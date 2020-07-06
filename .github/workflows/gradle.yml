@@ -49,7 +49,7 @@ jobs:
         if: failure() 
         with:
           name: logcat
-          path: artifacts/dconnect-manager-test-report.log
+          path: artifacts/logcat.log
       - name: Pack test result and document in zip file(Manager Test)
         if: always()
         run: |
@@ -96,7 +96,7 @@ jobs:
         if: failure() 
         with:
           name: logcat
-          path: artifacts/dconnect-nano-httpd-test-report.log
+          path: artifacts/logcat.log
       - name: Pack test result and document in zip file(Nano-Httpd Test)
         if: always()
         run: |
