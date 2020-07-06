@@ -64,6 +64,7 @@ jobs:
           path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-manager-test-report.zip
   server:
     name: dConnectServer Release
+    needs: manager
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -74,15 +75,6 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.5
-#       - name: Build Manager project 
-#         env:
-#           GPR_USER: ${{ secrets.GPR_USER }}
-#           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-#         run: |
-#           cd dConnectManager/dConnectManager
-#           chmod +x ./gradlew
-#           ./gradlew assembleDebug
-#           ls dconnect-manager-app/build/outputs/apk/debug
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
           cmd: sh nano-httpd-test.sh
