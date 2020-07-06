@@ -36,6 +36,21 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
           ls app/build/outputs/apk/debug
+          cd ../../dConnectManager
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+        with:
+          cmd: sudo ./gradlew dconnect-server-nano-httpd:connectedAndroidTest
+          api: 28
+          tag: default
+          abi: x86
+          hardwareProfile: -c 4096M
+          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Save logcat output(dconnect-nano-httpd-test-report)
+        uses: actions/upload-artifact@master
+        if: failure() 
+        with:
+          name: logcat
+          path: artifacts/dconnect-nano-httpd-test-report.log
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
           cmd: sh emulator-install.sh
@@ -46,6 +61,7 @@ jobs:
           cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Save logcat output(dconnect-manager-test-report)
         uses: actions/upload-artifact@master
+        if: failure() 
         with:
           name: logcat
           path: artifacts/dconnect-manager-test-report.log
