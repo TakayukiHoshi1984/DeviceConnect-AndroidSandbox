@@ -36,9 +36,13 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
           ls app/build/outputs/apk/debug
+      - name: Change Directory
+        run: |
+          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectServerNanoHttpd
+          chmod +x ./gradlew
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: sudo /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectServerNanoHttpd/gradlew connectedCheck
+          cmd: ./gradlew connectedCheck
           api: 28
           tag: default
           abi: x86
