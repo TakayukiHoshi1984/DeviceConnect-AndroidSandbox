@@ -46,7 +46,6 @@ jobs:
           cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Save logcat output(dconnect-manager-test-report)
         uses: actions/upload-artifact@master
-        if: failure()
         with:
           name: logcat
           path: artifacts/dconnect-manager-test-report.log
@@ -73,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dconnect-nano-httpd-test-report
-          path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-nano-httpd-test-report.zip
+          path: dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests/dconnect-nano-httpd-test-report.zip
 #       - name: Generate Javadoc For SDK
 #         if: always()
 #         run: ./gradlew generateJavadocForSDK
