@@ -29,7 +29,7 @@ sleep 5
 #
 # echo $IP
 # (sleep 1 ; sudo ; sleep 1 ; ifconfig ; sleep 1 ; exit ; sleep 1 ; exit)  | adb shell
-
+cd 
 cd dConnectManager/dConnectManager
 chmod +x ./gradlew
 
