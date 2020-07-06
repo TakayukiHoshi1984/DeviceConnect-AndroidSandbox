@@ -37,6 +37,8 @@ jobs:
           ./gradlew assembleDebug
           ls app/build/outputs/apk/debug
           cd ../../dConnectManager/dConnectManager
+          ls
+          pwd
           chmod +x ./gradlew
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
