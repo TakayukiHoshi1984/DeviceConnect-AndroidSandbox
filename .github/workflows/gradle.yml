@@ -66,7 +66,7 @@ jobs:
         if: always()
         run: |
           ls
-          cd /dconnect-manager-app/build/reports/androidTests
+          cd dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
           sudo mv connected dconnect-manager-test-report
           sudo zip -r dconnect-manager-test-report.zip ./dconnect-manager-test-report
       - name: Archive code coverage results(Manager Test)
