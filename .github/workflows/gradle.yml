@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: DeviceConnectManager-JUnit-Javadoc
-          path: DeviceConnectManager-JUnit-Javadoc.zip
+          path: dConnectManager/dConnectManager/DeviceConnectManager-JUnit-Javadoc.zip
   server:
     name: dConnectServer Release
     needs: manager
