@@ -57,12 +57,6 @@ android {
     }
 
     signingConfigs {
-        releaseConfig {
-            storeFile=file(project.properties.storeFile)
-            storePassword=project.properties.storePassword
-            keyAlias=project.properties.keyAlias
-            keyPassword=project.properties.keyPassword
-        }
         release {
             // 指定したfileがある場合のみ記述
             if(!properties.getProperty("RELEASE_STORE_FILE", "").empty){
