@@ -53,7 +53,8 @@ jobs:
       - name: Generate Javadoc For SDKJUnit
         if: always()
         run: |
-          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager
+          cd
+          cd dConnectManager/dConnectManager
           chmod +x ./gradlew
           ./gradlew generateJavadocForManagerJUnit
       - name: Pack test result and document in zip file(Manager Test)
