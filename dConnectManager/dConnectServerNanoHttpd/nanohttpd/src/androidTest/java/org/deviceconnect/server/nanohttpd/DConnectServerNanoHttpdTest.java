@@ -995,7 +995,7 @@ public class DConnectServerNanoHttpdTest {
         final String key = "key";
         final String value = "value";
         final String fileNameKey = "fileName";
-        final File writeFile = writeBigFile("bigData", ".dat", 1024 * 1024 * 1024);
+        final File writeFile = writeBigFile("bigData", ".dat", 1024 * 1024 * 1024 * 1024);
 
         final Map<String, Object> data = new HashMap<>();
         data.put(key, value);
