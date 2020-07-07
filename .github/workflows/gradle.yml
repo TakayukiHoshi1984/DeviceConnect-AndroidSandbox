@@ -60,11 +60,13 @@ jobs:
         if: always()
         run: |
           ls
+          dConnectManager/dConnectManager
           sudo zip -r DeviceConnectManager-JUnit-Javadoc.zip ./DeviceConnectManager-JUnit-Javadoc
       - name: Pack test result and document in zip file(Manager Test)
         if: always()
         run: |
-          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
+          ls
+          cd /dconnect-manager-app/build/reports/androidTests
           sudo mv connected dconnect-manager-test-report
           sudo zip -r dconnect-manager-test-report.zip ./dconnect-manager-test-report
       - name: Archive code coverage results(Manager Test)
