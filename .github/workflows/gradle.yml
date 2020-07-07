@@ -30,8 +30,13 @@ jobs:
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
           cd dConnectManager/dConnectManager
+          echo ${ANDROID_REALSE_BASE64_KEY} | base64 -d > ./release-application-key
+          echo "RELEASE_STORE_FILE=`pwd`/release-application-key" >> ./local.properties
+          echo "RELEASE_STORE_PASSWORD=${ANDROID_REALSE_KEY_PASSWORD}" >> ./local.properties
+          echo "RELEASE_KEY_ALIAS=key0" >> ./local.properties
+          echo "RELEASE_KEY_PASSWORD=${ANDROID_REALSE_KEY_PASSWORD}" >> ./local.properties
           chmod +x ./gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
           ls dconnect-manager-app/build/outputs/apk/debug
       - name: Build Test Plug-in project 
         env:
@@ -81,6 +86,16 @@ jobs:
         with:
           name: DeviceConnectManager-JUnit-Javadoc
           path: dConnectManager/dConnectManager/DeviceConnectManager-JUnit-Javadoc.zip
+      - name: Upload apk file(Manager)
+        uses: actions/upload-artifact@v1
+        with: 
+          name: Upload Manager release apk
+          path: dConnectManager/dConnectManager/dconnect-manager-app/build/outputs/apk/release/dconnect-manager-app-release.apk
+      - name: Upload apk file(Test Plug-in)
+        uses: actions/upload-artifact@v1
+        with:
+          name: Upload Test Plug-in release apk
+          path: dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
   server:
     name: dConnectServer Release
     needs: manager
