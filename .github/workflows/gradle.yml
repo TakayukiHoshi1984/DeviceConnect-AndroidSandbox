@@ -111,7 +111,7 @@ jobs:
       - name: Pack test result and document in zip file(Nano-Httpd Test)
         if: always()
         run: |
-          cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests
+          cd dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests
           sudo mv connected dconnect-nano-httpd-test-report
           sudo zip -r dconnect-nano-httpd-test-report.zip ./dconnect-nano-httpd-test-report
       - name: Archive code coverage results(Nano-Httpd Test)
