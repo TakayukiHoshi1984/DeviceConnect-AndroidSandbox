@@ -29,6 +29,7 @@ jobs:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
+          cd dConnectManager/dConnectManager
           chmod +x ./gradlew
           ./gradlew assembleDebug
           ls dconnect-manager-app/build/outputs/apk/debug
