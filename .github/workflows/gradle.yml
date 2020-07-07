@@ -21,7 +21,6 @@ jobs:
       - name: Generate Javadoc For SDKJUnit
         if: always()
         run: |
-          cd
           cd dConnectManager/dConnectManager
           chmod +x ./gradlew
           ./gradlew generateJavadocForManagerJUnit
