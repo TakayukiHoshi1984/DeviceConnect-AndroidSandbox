@@ -30,11 +30,11 @@ jobs:
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
           cd dConnectManager/dConnectManager
-          echo ${ANDROID_REALSE_BASE64_KEY} | base64 -d > ./release-application-key
+          echo ${{ANDROID_REALSE_BASE64_KEY}} | base64 -d > ./release-application-key
           echo "RELEASE_STORE_FILE=`pwd`/release-application-key" >> ./local.properties
-          echo "RELEASE_STORE_PASSWORD=${ANDROID_REALSE_KEY_PASSWORD}" >> ./local.properties
+          echo "RELEASE_STORE_PASSWORD=${{ANDROID_REALSE_KEY_PASSWORD}}" >> ./local.properties
           echo "RELEASE_KEY_ALIAS=key0" >> ./local.properties
-          echo "RELEASE_KEY_PASSWORD=${ANDROID_REALSE_KEY_PASSWORD}" >> ./local.properties
+          echo "RELEASE_KEY_PASSWORD=${{ANDROID_REALSE_KEY_PASSWORD}}" >> ./local.properties
           chmod +x ./gradlew
           ./gradlew assembleRelease
           ls dconnect-manager-app/build/outputs/apk/debug
