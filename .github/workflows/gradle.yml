@@ -50,18 +50,28 @@ jobs:
         with:
           name: logcat
           path: artifacts/logcat.log
+      - name: Generate Javadoc For SDKJUnit
+        if: always()
+        run: ./gradlew generateJavadocForManagerJUnit
       - name: Pack test result and document in zip file(Manager Test)
         if: always()
         run: |
           cd /Users/runner/runners/2.263.0/work/DeviceConnect-AndroidSandbox/DeviceConnect-AndroidSandbox/dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
           sudo mv connected dconnect-manager-test-report
           sudo zip -r dconnect-manager-test-report.zip ./dconnect-manager-test-report
+          sudo zip -r DeviceConnectManager-JUnit-Javadoc.zip ./DeviceConnectManager-JUnit-Javadoc
       - name: Archive code coverage results(Manager Test)
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: dconnect-manager-test-report
           path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-manager-test-report.zip
+      - name: Archive DeviceConnectManager-JUnit-Javadoc
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: DeviceConnectManager-JUnit-Javadoc
+          path: DeviceConnectManager-JUnit-Javadoc.zip
   server:
     name: dConnectServer Release
     needs: manager
