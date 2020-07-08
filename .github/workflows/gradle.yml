@@ -111,12 +111,6 @@ jobs:
             tag: default
             abi: x86
             cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-        - name: Test For DevicePluginSDK
-          if: always()
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            ./gradlew test
-            ls dconnect-device-plugin-sdk/build/reports
         - name: Generate Javadoc For DevicePluginSDK
           if: always()
           run: |
