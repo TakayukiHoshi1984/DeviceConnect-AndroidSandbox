@@ -28,10 +28,10 @@ jobs:
           ./gradlew assembleRelease
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: ./gradlew connectedCheck --stacktrace
-          api: 29
+          cmd: ./dConnectSDK/dConnectSDKForAndroid/gradlew connectedAndroidTest --stacktrace
+          api: 28
           tag: default
-          abi: x86_64
+          abi: x86
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Generate Javadoc For SDK
         if: always()
