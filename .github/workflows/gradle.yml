@@ -28,22 +28,23 @@ jobs:
           ./gradlew assembleRelease
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: ./gradlew connectedCheck --stacktrace
+          cmd: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew connectedCheck --stacktrace
           api: 29
           tag: default
           abi: x86_64
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Generate Javadoc For SDK
         if: always()
-        run: ./gradlew generateJavadocForSDK
+        run: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDK
       - name: Generate Javadoc For SDKJUnit
         if: always()
-        run: ./gradlew generateJavadocForSDKJUnit
+        run: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDKJUnit
       - name: Publish AAR
         env:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
+          cd dConnectSDK/dConnectSDKForAndroid/
           chmod +x ./gradlew
           ./gradlew assembleRelease publish    
       - name: Upload apk file
@@ -51,10 +52,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Upload dconnect-sdk-for-android release aar
-          path: dconnect-sdk-for-android/build/outputs/aar/dconnect-sdk-for-android-release.aar
+          path: dConnectSDK/dConnectSDKForAndroid/dconnect-sdk-for-android/build/outputs/aar/dconnect-sdk-for-android-release.aar
       - name: Pack test result and document in zip file
         if: always()
         run: |
+          cd dConnectSDK/dConnectSDKForAndroid/
           sudo zip -r DeviceConnectSDK-Javadoc.zip ./DeviceConnectSDK-Javadoc
           sudo zip -r DeviceConnectSDK-JUnit-Javadoc.zip ./DeviceConnectSDK-JUnit-Javadoc
           cd dconnect-sdk-for-android/build/reports/androidTests
@@ -65,19 +67,19 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: code-coverage-report
-          path: dconnect-sdk-for-android/build/reports/androidTests/release.zip
+          path: dConnectSDK/dConnectSDKForAndroid/dconnect-sdk-for-android/build/reports/androidTests/release.zip
       - name: Archive DeviceConnectSDK-Javadoc
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: DeviceConnectSDK-Javadoc
-          path: DeviceConnectSDK-Javadoc.zip
+          path: dConnectSDK/dConnectSDKForAndroid/DeviceConnectSDK-Javadoc.zip
       - name: Archive DeviceConnectSDK-Javadoc
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: DeviceConnectSDK-JUnit-Javadoc
-          path: DeviceConnectSDK-JUnit-Javadoc.zip
+          path: dConnectSDK/dConnectSDKForAndroid/DeviceConnectSDK-JUnit-Javadoc.zip
 #   manager:
 #     name: Manager Release
 #     runs-on: macos-latest
