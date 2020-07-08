@@ -7,6 +7,7 @@
 package org.deviceconnect.android.profile.spec;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.annotation.Config;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -29,6 +31,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(PluginSDKTestRunner.class)
+@Config(maxSdk = Build.VERSION_CODES.P)
 public class DConnectServiceSpecTest {
 
     /**

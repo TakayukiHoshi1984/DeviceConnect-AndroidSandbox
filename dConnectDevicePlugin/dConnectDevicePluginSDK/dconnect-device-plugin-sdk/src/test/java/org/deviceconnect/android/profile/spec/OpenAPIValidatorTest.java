@@ -7,6 +7,7 @@
 package org.deviceconnect.android.profile.spec;
 
 import android.content.Intent;
+import android.os.Build;
 
 import org.deviceconnect.android.PluginSDKTestRunner;
 import org.deviceconnect.android.profile.spec.models.DataFormat;
@@ -21,6 +22,7 @@ import org.deviceconnect.message.intent.message.IntentDConnectMessage;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class OpenAPIValidatorTest {
      * 共通テスト.
      */
     @RunWith(PluginSDKTestRunner.class)
+    @Config(maxSdk = Build.VERSION_CODES.P)
     public static class CommonTest {
 
         /**
@@ -320,6 +323,7 @@ public class OpenAPIValidatorTest {
      * 整数値のパラメータテスト.
      */
     @RunWith(PluginSDKTestRunner.class)
+    @Config(maxSdk = Build.VERSION_CODES.P)
     public static class IntegerTest {
         /**
          * 以下の設定で、OpenAPIValidator#validte(Property, Object) の第2引数に値を指定して呼び出す。
@@ -712,6 +716,7 @@ public class OpenAPIValidatorTest {
      * 実数値のパラメータテスト.
      */
     @RunWith(PluginSDKTestRunner.class)
+    @Config(maxSdk = Build.VERSION_CODES.P)
     public static class NumberTest {
         /**
          * 以下の設定で、OpenAPIValidator#validte(Property, Object) の第2引数に値を指定して呼び出す。
@@ -1109,6 +1114,7 @@ public class OpenAPIValidatorTest {
      * 文字列のパラメータテスト.
      */
     @RunWith(PluginSDKTestRunner.class)
+    @Config(maxSdk = Build.VERSION_CODES.P)
     public static class StringTest {
 
         /**
@@ -1369,6 +1375,7 @@ public class OpenAPIValidatorTest {
      * 配列のパラメータテスト.
      */
     @RunWith(PluginSDKTestRunner.class)
+    @Config(maxSdk = Build.VERSION_CODES.P)
     public static class ArrayTest {
         /**
          * 以下の設定で、OpenAPIValidator#validte(Property, Object) の第2引数に値を指定して呼び出す。

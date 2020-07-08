@@ -6,10 +6,13 @@
  */
 package org.deviceconnect.android;
 
+import android.os.Build;
+
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
-
+@Config(maxSdk = Build.VERSION_CODES.P)
 public class PluginSDKTestRunner extends RobolectricTestRunner {
     /**
      * コンストラクタ.

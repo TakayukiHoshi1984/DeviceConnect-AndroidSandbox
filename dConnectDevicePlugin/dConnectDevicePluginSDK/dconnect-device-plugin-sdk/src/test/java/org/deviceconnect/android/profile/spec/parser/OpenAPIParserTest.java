@@ -6,6 +6,8 @@
  */
 package org.deviceconnect.android.profile.spec.parser;
 
+import android.os.Build;
+
 import org.deviceconnect.android.PluginSDKTestRunner;
 import org.deviceconnect.android.profile.spec.models.DataFormat;
 import org.deviceconnect.android.profile.spec.models.DataType;
@@ -23,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 @RunWith(PluginSDKTestRunner.class)
+@Config(maxSdk = Build.VERSION_CODES.P)
 public class OpenAPIParserTest {
 
     private void printSwagger(Swagger swagger) throws JSONException {
