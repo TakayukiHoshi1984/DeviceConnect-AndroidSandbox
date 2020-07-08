@@ -28,7 +28,7 @@ jobs:
           ./gradlew assembleRelease
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: ./dConnectSDK/dConnectSDKForAndroid/gradlew connectedAndroidTest --stacktrace
+          cmd: ./DConnect-AndroidSandbox/dConnectSDK/dConnectSDKForAndroid/gradlew connectedAndroidTest --stacktrace
           api: 28
           tag: default
           abi: x86
