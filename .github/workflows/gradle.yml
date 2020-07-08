@@ -117,7 +117,7 @@ jobs:
             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
             chmod +x ./gradlew
             ./gradlew test
-            ls build/reports/
+            ls dconnect-device-plugin-sdk/build/reports/
         - name: Generate Javadoc For DevicePluginSDK
           if: always()
           run: |
