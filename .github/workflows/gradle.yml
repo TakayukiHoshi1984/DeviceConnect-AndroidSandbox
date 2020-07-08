@@ -28,17 +28,17 @@ jobs:
           ./gradlew assembleRelease
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          cmd: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew connectedCheck --stacktrace
+          cmd: ./dConnectSDK/dConnectSDKForAndroid/gradlew connectedCheck --stacktrace
           api: 29
           tag: default
           abi: x86_64
           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
       - name: Generate Javadoc For SDK
         if: always()
-        run: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDK
+        run: ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDK
       - name: Generate Javadoc For SDKJUnit
         if: always()
-        run: sudo ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDKJUnit
+        run: ./dConnectSDK/dConnectSDKForAndroid/gradlew generateJavadocForSDKJUnit
       - name: Publish AAR
         env:
           GPR_USER: ${{ secrets.GPR_USER }}
