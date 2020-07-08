@@ -3,4 +3,3 @@
 cd dConnectDevicePlugin/dConnectDevicePluginSDK/
 chmod +x ./gradlew
 ./gradlew connectedAndroidTest
-./gradlew test
