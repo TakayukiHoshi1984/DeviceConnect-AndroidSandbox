@@ -1,3 +1,10 @@
+/*
+ DateUtils.java
+ Copyright (c) 2014 NTT DOCOMO,INC.
+ Released under the MIT license
+ http://opensource.org/licenses/mit-license.php
+ */
+
 package org.deviceconnect.utils;
 
 import java.text.ParseException;
@@ -214,9 +221,6 @@ public class RFC3339DateUtils {
             SimpleDateFormat format = new SimpleDateFormat(RFC_3339, locale);
             format.setTimeZone(timezone);
             String dateString =  format.format(dateCalendar.getTime());
-            if (dateString.lastIndexOf(':') == dateString.length() - 3) {
-                return dateString;
-            }
             return dateString.substring(0, dateString.length() - 2)
                     + ":" + dateString.substring(dateString.length() - 2);
         }
@@ -235,9 +239,6 @@ public class RFC3339DateUtils {
             SimpleDateFormat format = new SimpleDateFormat(RFC_3339, locale);
             format.setTimeZone(timezone);
             String dateString =  format.format(date);
-            if (dateString.lastIndexOf(':') == dateString.length() - 3) {
-                return dateString;
-            }
             return dateString.substring(0, dateString.length() - 2)
                     + ":" + dateString.substring(dateString.length() - 2);
         }
@@ -255,9 +256,6 @@ public class RFC3339DateUtils {
         SimpleDateFormat format = new SimpleDateFormat(RFC_3339, locale);
         format.setTimeZone(timezone);
         String dateString =  format.format(new Date(dateLong));
-        if (dateString.lastIndexOf(':') == dateString.length() - 3) {
-            return dateString;
-        }
         return dateString.substring(0, dateString.length() - 2)
                 + ":" + dateString.substring(dateString.length() - 2);
     }
