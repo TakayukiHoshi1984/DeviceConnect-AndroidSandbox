@@ -6,8 +6,8 @@ name: dConnectManager CI
 on: [push, pull_request]
 
 jobs:
-  manager:
-    name: Manager Release
+  sdkforandroid:
+    name: SDKForAndroid release
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -18,163 +18,190 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.5
-      - name: Generate Javadoc For SDKJUnit
-        if: always()
-        run: |
-          cd dConnectManager/dConnectManager
-          chmod +x ./gradlew
-          ./gradlew generateJavadocForManagerJUnit
-      - name: Build Manager project 
+      - name: Build project
         env:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
-          cd dConnectManager/dConnectManager
-          echo ${{ secrets.ANDROID_REALSE_BASE64_KEY }} | base64 -d > ./release-application-key
-          echo "RELEASE_STORE_FILE=`pwd`/release-application-key" >> ./local.properties
-          echo "RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_REALSE_KEY_PASSWORD }}" >> ./local.properties
-          echo "RELEASE_KEY_ALIAS=deviceconnect" >> ./local.properties
-          echo "RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_REALSE_KEY_PASSWORD }}" >> ./local.properties
+          cd dConnectSDK/dConnectSDKForAndroid/
           chmod +x ./gradlew
           ./gradlew assembleRelease
-      - name: Build Test Plug-in project 
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+        with:
+          cmd: ./gradlew connectedCheck --stacktrace
+          api: 29
+          tag: default
+          abi: x86_64
+          cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+      - name: Generate Javadoc For SDK
+        if: always()
+        run: ./gradlew generateJavadocForSDK
+      - name: Generate Javadoc For SDKJUnit
+        if: always()
+        run: ./gradlew generateJavadocForSDKJUnit
+      - name: Publish AAR
         env:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
         run: |
-          cd dConnectDevicePlugin/dConnectDeviceTest
           chmod +x ./gradlew
-          ./gradlew assembleDebug
-      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+          ./gradlew assembleRelease publish    
+      - name: Upload apk file
+        if: always()
+        uses: actions/upload-artifact@v1
         with:
-          cmd: sh emulator-install.sh
-          api: 28
-          tag: default
-          abi: x86
-          hardwareProfile: -c 4096M
-          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-      - name: Save logcat output(dconnect-manager-test-report)
-        uses: actions/upload-artifact@master
-        if: failure() 
-        with:
-          name: logcat
-          path: artifacts/logcat.log
-      - name: Pack test result and document in zip file(Manager Test Javadoc)
+          name: Upload dconnect-sdk-for-android release aar
+          path: dconnect-sdk-for-android/build/outputs/aar/dconnect-sdk-for-android-release.aar
+      - name: Pack test result and document in zip file
         if: always()
         run: |
-          ls
-          cd dConnectManager/dConnectManager
-          sudo zip -r DeviceConnectManager-JUnit-Javadoc.zip ./DeviceConnectManager-JUnit-Javadoc
-      - name: Pack test result and document in zip file(Manager Test)
-        if: always()
-        run: |
-          ls
-          cd dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
-          sudo mv connected dconnect-manager-test-report
-          sudo zip -r dconnect-manager-test-report.zip ./dconnect-manager-test-report
-      - name: Archive code coverage results(Manager Test)
+          sudo zip -r DeviceConnectSDK-Javadoc.zip ./DeviceConnectSDK-Javadoc
+          sudo zip -r DeviceConnectSDK-JUnit-Javadoc.zip ./DeviceConnectSDK-JUnit-Javadoc
+          cd dconnect-sdk-for-android/build/reports/androidTests
+          sudo mv connected code-coverage-report
+          sudo zip -r release.zip ./code-coverage-report
+      - name: Archive code coverage results
         if: always()
         uses: actions/upload-artifact@v1
         with:
-          name: dconnect-manager-test-report
-          path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-manager-test-report.zip
-      - name: Archive DeviceConnectManager-JUnit-Javadoc
+          name: code-coverage-report
+          path: dconnect-sdk-for-android/build/reports/androidTests/release.zip
+      - name: Archive DeviceConnectSDK-Javadoc
         if: always()
         uses: actions/upload-artifact@v1
         with:
-          name: DeviceConnectManager-JUnit-Javadoc
-          path: dConnectManager/dConnectManager/DeviceConnectManager-JUnit-Javadoc.zip
-      - name: Upload apk file(Manager)
-        uses: actions/upload-artifact@v1
-        with: 
-          name: Upload Manager release apk
-          path: dConnectManager/dConnectManager/dconnect-manager-app/build/outputs/apk/release/dconnect-manager-app-release.apk
-      - name: Upload apk file(Test Plug-in)
-        uses: actions/upload-artifact@v1
-        with:
-          name: Upload Test Plug-in release apk
-          path: dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
-  server:
-    name: dConnectServer Release
-    needs: manager
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Install JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Install Android SDK
-        uses: malinskiy/action-android/install-sdk@release/0.0.5
-      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
-        with:
-          cmd: sh nano-httpd-test.sh
-          api: 28
-          tag: default
-          abi: x86
-          hardwareProfile: -c 4096M
-          cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-      - name: Save logcat output(dconnect-nano-httpd-test-report)
-        uses: actions/upload-artifact@master
-        if: failure() 
-        with:
-          name: logcat
-          path: artifacts/logcat.log
-      - name: Pack test result and document in zip file(Nano-Httpd Test)
-        if: always()
-        run: |
-          cd dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests
-          sudo mv connected dconnect-nano-httpd-test-report
-          sudo zip -r dconnect-nano-httpd-test-report.zip ./dconnect-nano-httpd-test-report
-      - name: Archive code coverage results(Nano-Httpd Test)
+          name: DeviceConnectSDK-Javadoc
+          path: DeviceConnectSDK-Javadoc.zip
+      - name: Archive DeviceConnectSDK-Javadoc
         if: always()
         uses: actions/upload-artifact@v1
         with:
-          name: dconnect-nano-httpd-test-report
-          path: dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests/dconnect-nano-httpd-test-report.zip
-#       - name: Generate Javadoc For SDK
-#         if: always()
-#         run: ./gradlew generateJavadocForSDK
+          name: DeviceConnectSDK-JUnit-Javadoc
+          path: DeviceConnectSDK-JUnit-Javadoc.zip
+#   manager:
+#     name: Manager Release
+#     runs-on: macos-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
+#       - name: Install JDK 1.8
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 1.8
+#       - name: Install Android SDK
+#         uses: malinskiy/action-android/install-sdk@release/0.0.5
 #       - name: Generate Javadoc For SDKJUnit
 #         if: always()
-#         run: ./gradlew generateJavadocForSDKJUnit
-#       - name: Publish AAR
+#         run: |
+#           cd dConnectManager/dConnectManager
+#           chmod +x ./gradlew
+#           ./gradlew generateJavadocForManagerJUnit
+#       - name: Build Manager project 
 #         env:
 #           GPR_USER: ${{ secrets.GPR_USER }}
 #           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
 #         run: |
+#           cd dConnectManager/dConnectManager
+#           echo ${{ secrets.ANDROID_REALSE_BASE64_KEY }} | base64 -d > ./release-application-key
+#           echo "RELEASE_STORE_FILE=`pwd`/release-application-key" >> ./local.properties
+#           echo "RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_REALSE_KEY_PASSWORD }}" >> ./local.properties
+#           echo "RELEASE_KEY_ALIAS=deviceconnect" >> ./local.properties
+#           echo "RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_REALSE_KEY_PASSWORD }}" >> ./local.properties
 #           chmod +x ./gradlew
-#           ./gradlew assembleRelease publish    
-#       - name: Upload apk file
-#         if: always()
-#         uses: actions/upload-artifact@v1
+#           ./gradlew assembleRelease
+#       - name: Build Test Plug-in project 
+#         env:
+#           GPR_USER: ${{ secrets.GPR_USER }}
+#           GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#         run: |
+#           cd dConnectDevicePlugin/dConnectDeviceTest
+#           chmod +x ./gradlew
+#           ./gradlew assembleDebug
+#       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
 #         with:
-#           name: Upload dconnect-sdk-for-android release aar
-#           path: dconnect-sdk-for-android/build/outputs/aar/dconnect-sdk-for-android-release.aar
-#       - name: Pack test result and document in zip file
+#           cmd: sh emulator-install.sh
+#           api: 28
+#           tag: default
+#           abi: x86
+#           hardwareProfile: -c 4096M
+#           cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+#       - name: Save logcat output(dconnect-manager-test-report)
+#         uses: actions/upload-artifact@master
+#         if: failure() 
+#         with:
+#           name: logcat
+#           path: artifacts/logcat.log
+#       - name: Pack test result and document in zip file(Manager Test Javadoc)
 #         if: always()
 #         run: |
-#           sudo zip -r DeviceConnectSDK-Javadoc.zip ./DeviceConnectSDK-Javadoc
-#           sudo zip -r DeviceConnectSDK-JUnit-Javadoc.zip ./DeviceConnectSDK-JUnit-Javadoc
-#           cd dconnect-sdk-for-android/build/reports/androidTests
-#           sudo mv connected code-coverage-report
-#           sudo zip -r release.zip ./code-coverage-report
-#       - name: Archive code coverage results
+#           ls
+#           cd dConnectManager/dConnectManager
+#           sudo zip -r DeviceConnectManager-JUnit-Javadoc.zip ./DeviceConnectManager-JUnit-Javadoc
+#       - name: Pack test result and document in zip file(Manager Test)
+#         if: always()
+#         run: |
+#           ls
+#           cd dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests
+#           sudo mv connected dconnect-manager-test-report
+#           sudo zip -r dconnect-manager-test-report.zip ./dconnect-manager-test-report
+#       - name: Archive code coverage results(Manager Test)
 #         if: always()
 #         uses: actions/upload-artifact@v1
 #         with:
-#           name: code-coverage-report
-#           path: dconnect-sdk-for-android/build/reports/androidTests/release.zip
-#       - name: Archive DeviceConnectSDK-Javadoc
+#           name: dconnect-manager-test-report
+#           path: dConnectManager/dConnectManager/dconnect-manager-app/build/reports/androidTests/dconnect-manager-test-report.zip
+#       - name: Archive DeviceConnectManager-JUnit-Javadoc
 #         if: always()
 #         uses: actions/upload-artifact@v1
 #         with:
-#           name: DeviceConnectSDK-Javadoc
-#           path: DeviceConnectSDK-Javadoc.zip
-#       - name: Archive DeviceConnectSDK-Javadoc
+#           name: DeviceConnectManager-JUnit-Javadoc
+#           path: dConnectManager/dConnectManager/DeviceConnectManager-JUnit-Javadoc.zip
+#       - name: Upload apk file(Manager)
+#         uses: actions/upload-artifact@v1
+#         with: 
+#           name: Upload Manager release apk
+#           path: dConnectManager/dConnectManager/dconnect-manager-app/build/outputs/apk/release/dconnect-manager-app-release.apk
+#       - name: Upload apk file(Test Plug-in)
+#         uses: actions/upload-artifact@v1
+#         with:
+#           name: Upload Test Plug-in release apk
+#           path: dConnectDevicePlugin/dConnectDeviceTest/app/build/outputs/apk/debug/app-debug.apk
+#   server:
+#     name: dConnectServer Release
+#     needs: manager
+#     runs-on: macos-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
+#       - name: Install JDK 1.8
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 1.8
+#       - name: Install Android SDK
+#         uses: malinskiy/action-android/install-sdk@release/0.0.5
+#       - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+#         with:
+#           cmd: sh nano-httpd-test.sh
+#           api: 28
+#           tag: default
+#           abi: x86
+#           hardwareProfile: -c 4096M
+#           cmdOptions: -partition-size 4096 -memory 4096 -no-snapshot-load -cache-size 4096 -writable-system -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+#       - name: Save logcat output(dconnect-nano-httpd-test-report)
+#         uses: actions/upload-artifact@master
+#         if: failure() 
+#         with:
+#           name: logcat
+#           path: artifacts/logcat.log
+#       - name: Pack test result and document in zip file(Nano-Httpd Test)
+#         if: always()
+#         run: |
+#           cd dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests
+#           sudo mv connected dconnect-nano-httpd-test-report
+#           sudo zip -r dconnect-nano-httpd-test-report.zip ./dconnect-nano-httpd-test-report
+#       - name: Archive code coverage results(Nano-Httpd Test)
 #         if: always()
 #         uses: actions/upload-artifact@v1
 #         with:
-#           name: DeviceConnectSDK-JUnit-Javadoc
-#           path: DeviceConnectSDK-JUnit-Javadoc.zip
+#           name: dconnect-nano-httpd-test-report
+#           path: dConnectManager/dConnectServerNanoHttpd/nanohttpd/build/reports/androidTests/dconnect-nano-httpd-test-report.zip
