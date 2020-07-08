@@ -103,7 +103,7 @@ jobs:
           run: |
             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
             chmod +x ./gradlew
-            ./gradlew assembleRelease
+            sudo ./gradlew assembleRelease
         - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
           with:
             cmd: sh device-plugin-sdk-test.sh
