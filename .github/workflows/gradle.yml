@@ -136,9 +136,10 @@ jobs:
             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
             sudo zip -r DevicePluginSDK-Javadoc.zip ./DevicePluginSDK-Javadoc
             cd dconnect-device-plugin-sdk/build/reports/androidTests
-            sudo mv connected DevicePluginSDK-JUnit-Report
+            sudo mv testDebugUnitTest DevicePluginSDK-JUnit-Report
             sudo zip -r DevicePluginSDK-JUnit-Report.zip ./DevicePluginSDK-JUnit-Report
             cd ../tests
+            ls
             sudo mv connected DevicePluginSDK-Profile-JUnit-Report
             sudo zip -r DevicePluginSDK-Profile-JUnit-Report.zip ./DevicePluginSDK-Profile-JUnit-Report
         - name: Archive code coverage results (Android JUnit)
