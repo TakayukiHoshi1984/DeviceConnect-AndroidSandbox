@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd ConnectSDK/dConnectSDKForAndroid
+cd dConnectSDK/dConnectSDKForAndroid
 chmod +x ./gradlew
 ./gradlew connectedAndroidTest
