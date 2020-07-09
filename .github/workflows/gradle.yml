@@ -25,8 +25,7 @@ jobs:
           run: |
             cd dConnectSDK/dConnectLibStreaming/
             chmod +x ./gradlew
-            cd libmedia
-            ../gradlew assembleRelease
+            ./gradlew libmedia:assembleRelease
         - name: Publish AAR
           env:
             GPR_USER: ${{ secrets.GPR_USER }}
@@ -34,14 +33,13 @@ jobs:
           run: |
             cd dConnectSDK/dConnectLibStreaming/
             chmod +x ./gradlew
-            cd libmedia
-            ../gradlew assembleRelease publish
+            ./gradlew libmedia:assembleRelease publish
         - name: Upload aar file
           if: always()
           uses: actions/upload-artifact@v1
           with:
             name: Upload libmedia release aar
-            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libmedia-release.aar
+            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libmedia-release-1.0.0.aar
 #     demolib:
 #       name: Demo Lib release
 #       runs-on: macos-latest
