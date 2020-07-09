@@ -56,11 +56,18 @@ jobs:
           uses: malinskiy/action-android/install-sdk@release/0.0.5
         - name: Install Environments
           run: |
+            cd dConnectSDK/dConnectLibStreaming/libsrt/
+            mkdir srt-build
+            cd srt-build
+            mkdir data
+            cd data
+            ls
             sudo apt-get update
             sudo apt-get upgrade
             sudo apt-get install tclsh pkg-config cmake libssl-dev build-essential unzip
             sudo wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
             sudo unzip android-ndk-r19c-linux-x86_64.zip
+            pwd
             sudo wget http://nixos.org/releases/patchelf/patchelf-0.10/patchelf-0.10.tar.bz2
             sudo tar xfa patchelf-0.10.tar.bz2
             cd patchelf-0.10
@@ -76,6 +83,8 @@ jobs:
             sudo make
             sudo make install
             export PATH="/usr/local/bin:$PATH"
+            git clone https://github.com/Haivision/srt.git
+            cd /srt/docs/Android
 #         - name: Build project
 #           env:
 #             GPR_USER: ${{ secrets.GPR_USER }}
