@@ -123,7 +123,7 @@ jobs:
           uses: actions/upload-artifact@v1
           with:
             name: Upload libmedia release aar
-            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libsrt-release-1.0.1.aar
+            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libsrt-release-1.0.0.aar
 #     demolib:
 #       name: Demo Lib release
 #       runs-on: macos-latest
