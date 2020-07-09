@@ -100,30 +100,30 @@ jobs:
             sudo cp -pR arm64-v8a/include ../../../../../../../src/main/jniLibs/
             cd ../../../../../../../src/main/
             ls
-#         - name: Build project
-#           env:
-#             GPR_USER: ${{ secrets.GPR_USER }}
-#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-#           run: |
-#             cd dConnectSDK/dConnectLibStreaming/
-#             chmod +x ./gradlew
-#             cd libsrt
-#             ../gradlew assembleRelease
-#         - name: Publish AAR
-#           env:
-#             GPR_USER: ${{ secrets.GPR_USER }}
-#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-#           run: |
-#             cd dConnectSDK/dConnectLibStreaming/
-#             chmod +x ./gradlew
-#             cd libsrt
-#             ../gradlew assembleRelease publish
-#         - name: Upload aar file
-#           if: always()
-#           uses: actions/upload-artifact@v1
-#           with:
-#             name: Upload libmedia release aar
-#             path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libsrt-release-1.0.1.aar
+        - name: Build project
+          env:
+            GPR_USER: ${{ secrets.GPR_USER }}
+            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+          run: |
+            cd dConnectSDK/dConnectLibStreaming/
+            chmod +x ./gradlew
+            cd libsrt
+            ../gradlew assembleRelease
+        - name: Publish AAR
+          env:
+            GPR_USER: ${{ secrets.GPR_USER }}
+            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+          run: |
+            cd dConnectSDK/dConnectLibStreaming/
+            chmod +x ./gradlew
+            cd libsrt
+            ../gradlew assembleRelease publish
+        - name: Upload aar file
+          if: always()
+          uses: actions/upload-artifact@v1
+          with:
+            name: Upload libmedia release aar
+            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libsrt-release-1.0.1.aar
 #     demolib:
 #       name: Demo Lib release
 #       runs-on: macos-latest
