@@ -95,9 +95,9 @@ jobs:
             sudo sh mkall
             sudo sh packjni
             pwd
-            sudo ls ../../../../../src/main
-            sudo cp -pR jniLibs ../../../../../src/main/
-            sudo cp -pR arm64-v8a/include ../../../../../src/main/jniLibs/
+            sudo ls ../../../../../../../src/main
+            sudo cp -pR jniLibs ../../../../../../../src/main/
+            sudo cp -pR arm64-v8a/include ../../../../../../../src/main/jniLibs/
             cd
             cd dConnectSDK/dConnectLibStreaming/libsrt/src/main/jniLibs/
             ls
