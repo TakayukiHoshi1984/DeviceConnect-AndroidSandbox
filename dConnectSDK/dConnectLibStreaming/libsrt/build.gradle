@@ -15,7 +15,7 @@ def getArtificatId = { ->
 
 android {
     compileSdkVersion 29
-    ndkVersion "21.0.6113669"
+    ndkVersion "19.2.5345600"
 
     defaultConfig {
         minSdkVersion 21
