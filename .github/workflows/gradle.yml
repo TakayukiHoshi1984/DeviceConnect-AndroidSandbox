@@ -95,7 +95,7 @@ jobs:
             sudo sh mkall
             sudo sh packjni
             ls
-            cp -Pr arm64_v8a/include ../../../../../src/main/jniLibs/
+            cp -pR arm64-v8a/include ../../../../../src/main/jniLibs/
             cd
             cd dConnectSDK/dConnectLibStreaming/libsrt/src/main/jniLibs/
             ls
