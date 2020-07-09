@@ -18,6 +18,32 @@ jobs:
             java-version: 1.8
         - name: Install Android SDK
           uses: malinskiy/action-android/install-sdk@release/0.0.5
+        - name : install ndk
+          run: | 
+            sudo curl --silent --show-error --location --fail --retry 3 \
+              --output /tmp/$NDK_VERSION.zip \
+              https://dl.google.com/android/repository/$NDK_VERSION-linux-x86_64.zip
+
+            sudo echo "$NDK_SHA /tmp/$NDK_VERSION.zip" > /tmp/$NDK_VERSION.zip.sha1
+
+            sha1sum -c /tmp/$NDK_VERSION.zip.sha1
+
+            sudo rm -rf $ANDROID_SDK_ROOT/ndk-bundle
+            sudo unzip -q /tmp/$NDK_VERSION.zip -d $ANDROID_SDK_ROOT
+            sudo mv $ANDROID_SDK_ROOT/$NDK_VERSION $ANDROID_SDK_ROOT/ndk-bundle
+            sudo chown -R root:root $ANDROID_SDK_ROOT/ndk-bundle
+            sudo rm -f /tmp/$NDK_VERSION*
+
+            if [[ -d $ANDROID_SDK_ROOT/ndk-bundle && \
+              -n "$(ls -A $ANDROID_SDK_ROOT/ndk-bundle)" ]]; then
+              echo "Android NDK installed"
+            else
+              echo "Android NDK did not install successfully"
+              exit 1
+            fi
+          env:
+            NDK_SHA: fd94d0be6017c6acbd193eb95e09cf4b6f61b834
+            NDK_VERSION: android-ndk-r19c
         - name: Build project
           env:
             GPR_USER: ${{ secrets.GPR_USER }}
