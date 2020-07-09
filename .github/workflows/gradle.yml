@@ -94,7 +94,8 @@ jobs:
             sudo sed -i -e "s|srt_version=1.3.1|srt_version=1.4.1|g" packjni
             sudo sh mkall
             sudo sh packjni
-            ls ../../../../../src/main
+            pwd
+            sudo ls ../../../../../src/main
             sudo cp -pR jniLibs ../../../../../src/main/
             sudo cp -pR arm64-v8a/include ../../../../../src/main/jniLibs/
             cd
