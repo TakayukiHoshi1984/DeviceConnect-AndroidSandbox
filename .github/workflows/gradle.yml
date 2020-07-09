@@ -42,8 +42,8 @@ jobs:
 #           with:
 #             name: Upload libmedia release aar
 #             path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libmedia-release-1.0.0.aar
-    libmedia:
-      name: libmedia release
+    libsrt:
+      name: libsrt release
       runs-on: ubuntu-latest
       steps:
         - name: Checkout
@@ -56,24 +56,24 @@ jobs:
           uses: malinskiy/action-android/install-sdk@release/0.0.5
         - name: Install Environments
           run: |
-            apt-get update
-            apt-get upgrade
-            apt-get install tclsh pkg-config cmake libssl-dev build-essential unzip
-            wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
-            unzip android-ndk-r19c-linux-x86_64.zip
-            wget http://nixos.org/releases/patchelf/patchelf-0.10/patchelf-0.10.tar.bz2
-            tar xfa patchelf-0.10.tar.bz2
+            sudo apt-get update
+            sudo apt-get upgrade
+            sudo apt-get install tclsh pkg-config cmake libssl-dev build-essential unzip
+            sudo wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
+            sudo unzip android-ndk-r19c-linux-x86_64.zip
+            sudo wget http://nixos.org/releases/patchelf/patchelf-0.10/patchelf-0.10.tar.bz2
+            sudo tar xfa patchelf-0.10.tar.bz2
             cd patchelf-0.10
-            ./configure --prefix=/usr/local
-            make
+            sudo ./configure --prefix=/usr/local
+            sudo make
             sudo make install
             sudo apt install --reinstall build-essential
             sudo apt-get install tclsh
-            wget https://cmake.org/files/v3.4/cmake-3.4.0-rc3.tar.gz
-            tar xvf cmake-3.4.0-rc3.tar.gz
+            sudo wget https://cmake.org/files/v3.4/cmake-3.4.0-rc3.tar.gz
+            sudo tar xvf cmake-3.4.0-rc3.tar.gz
             cd cmake-3.4.0-rc3/
-            ./configure
-            make
+            sudo ./configure
+            sudo make
             sudo make install
             export PATH="/usr/local/bin:$PATH"
 #         - name: Build project
