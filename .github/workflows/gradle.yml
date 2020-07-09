@@ -6,6 +6,42 @@ name: dConnectManager CI
 on: [push, pull_request]
 
 jobs:
+#     libmedia:
+#       name: libmedia release
+#       runs-on: ubuntu-latest
+#       steps:
+#         - name: Checkout
+#           uses: actions/checkout@v1
+#         - name: Install JDK 1.8
+#           uses: actions/setup-java@v1
+#           with:
+#             java-version: 1.8
+#         - name: Install Android SDK
+#           uses: malinskiy/action-android/install-sdk@release/0.0.5
+#         - name: Build project
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectSDK/dConnectLibStreaming/
+#             chmod +x ./gradlew
+#             cd libmedia
+#             ../gradlew assembleRelease
+#         - name: Publish AAR
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectSDK/dConnectLibStreaming/
+#             chmod +x ./gradlew
+#             cd libmedia
+#             ../gradlew assembleRelease publish
+#         - name: Upload aar file
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: Upload libmedia release aar
+#             path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libmedia-release-1.0.0.aar
     libmedia:
       name: libmedia release
       runs-on: ubuntu-latest
@@ -18,30 +54,52 @@ jobs:
             java-version: 1.8
         - name: Install Android SDK
           uses: malinskiy/action-android/install-sdk@release/0.0.5
-        - name: Build project
-          env:
-            GPR_USER: ${{ secrets.GPR_USER }}
-            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+        - name: Install Environments
           run: |
-            cd dConnectSDK/dConnectLibStreaming/
-            chmod +x ./gradlew
-            cd libmedia
-            ../gradlew assembleRelease
-        - name: Publish AAR
-          env:
-            GPR_USER: ${{ secrets.GPR_USER }}
-            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-          run: |
-            cd dConnectSDK/dConnectLibStreaming/
-            chmod +x ./gradlew
-            cd libmedia
-            ../gradlew assembleRelease publish
-        - name: Upload aar file
-          if: always()
-          uses: actions/upload-artifact@v1
-          with:
-            name: Upload libmedia release aar
-            path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libmedia-release-1.0.0.aar
+            apt-get update
+            apt-get upgrade
+            apt-get install tclsh pkg-config cmake libssl-dev build-essential unzip
+            wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
+            unzip android-ndk-r19c-linux-x86_64.zip
+            wget http://nixos.org/releases/patchelf/patchelf-0.10/patchelf-0.10.tar.bz2
+            tar xfa patchelf-0.10.tar.bz2
+            cd patchelf-0.10
+            ./configure --prefix=/usr/local
+            make
+            sudo make install
+            sudo apt install --reinstall build-essential
+            sudo apt-get install tclsh
+            wget https://cmake.org/files/v3.4/cmake-3.4.0-rc3.tar.gz
+            tar xvf cmake-3.4.0-rc3.tar.gz
+            cd cmake-3.4.0-rc3/
+            ./configure
+            make
+            sudo make install
+            export PATH="/usr/local/bin:$PATH"
+#         - name: Build project
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectSDK/dConnectLibStreaming/
+#             chmod +x ./gradlew
+#             cd libsrt
+#             ../gradlew assembleRelease
+#         - name: Publish AAR
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectSDK/dConnectLibStreaming/
+#             chmod +x ./gradlew
+#             cd libsrt
+#             ../gradlew assembleRelease publish
+#         - name: Upload aar file
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: Upload libmedia release aar
+#             path: dConnectSDK/dConnectLibStreaming/libmedia/build/outputs/aar/libsrt-release-1.0.1.aar
 #     demolib:
 #       name: Demo Lib release
 #       runs-on: macos-latest
