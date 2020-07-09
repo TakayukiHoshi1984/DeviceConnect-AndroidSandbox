@@ -6,7 +6,40 @@ name: dConnectManager CI
 on: [push, pull_request]
 
 jobs:
-  # sdkforandroid:
+    demolib:
+      name: Demo Lib release
+      runs-on: macos-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v1
+        - name: Install JDK 1.8
+          uses: actions/setup-java@v1
+          with:
+            java-version: 1.8
+        - name: Install Android SDK
+          uses: malinskiy/action-android/install-sdk@release/0.0.5
+        - name: Build project
+          env:
+            GPR_USER: ${{ secrets.GPR_USER }}
+            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+          run: |
+            cd dConnectSDK/dConnectDemoLib/
+            chmod +x ./gradlew
+            ./gradlew assembleRelease
+        - name: Publish AAR
+          env:
+            GPR_USER: ${{ secrets.GPR_USER }}
+            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+          run: |
+            cd dConnectSDK/dConnectDemoLib/
+            chmod +x ./gradlew
+            ./gradlew assembleRelease publish
+        - name: Upload aar file
+          if: always()
+          uses: actions/upload-artifact@v1
+          with:
+            name: Upload dconnect-demo-lib release aar
+            path: dConnectSDK/dConnectDemoLib/dconnect-demo-lib/build/outputs/aar/dconnect-demo-lib-release.aar
   #   name: SDKForAndroid release
   #   runs-on: macos-latest
   #   steps:
@@ -84,88 +117,88 @@ jobs:
   #       with:
   #         name: DeviceConnectSDK-JUnit-Javadoc
   #         path: dConnectSDK/dConnectSDKForAndroid/DeviceConnectSDK-JUnit-Javadoc.zip
-    devicepluginsdk:
-      name: DevicePluginSDK release
-      runs-on: macos-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v1
-        - name: Install JDK 1.8
-          uses: actions/setup-java@v1
-          with:
-            java-version: 1.8
-        - name: Install Android SDK
-          uses: malinskiy/action-android/install-sdk@release/0.0.5
-        - name: Build project
-          env:
-            GPR_USER: ${{ secrets.GPR_USER }}
-            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            chmod +x ./gradlew
-            ./gradlew assembleRelease
-        - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
-          with:
-            cmd: sh device-plugin-sdk-test.sh
-            api: 28
-            tag: default
-            abi: x86
-            cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
-        - name: Test For DevicePluginSDK
-          if: always()
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            chmod +x ./gradlew
-            ./gradlew test
-            ls dconnect-device-plugin-sdk/build/reports/
-        - name: Generate Javadoc For DevicePluginSDK
-          if: always()
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            ./gradlew generateJavadocForPlugin
-        - name: Publish AAR
-          env:
-            GPR_USER: ${{ secrets.GPR_USER }}
-            GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            chmod +x ./gradlew
-            ./gradlew assembleRelease publish
-        - name: Upload aar file
-          if: always()
-          uses: actions/upload-artifact@v1
-          with:
-            name: Upload dconnect-device-plugin-sdk release aar
-            path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/outputs/aar/dconnect-device-plugin-sdk-release.aar
-        - name: Pack test result and document in zip file
-          if: always()
-          run: |
-            cd dConnectDevicePlugin/dConnectDevicePluginSDK/
-            sudo zip -r DevicePluginSDK-Javadoc.zip ./DevicePluginSDK-Javadoc
-            cd dconnect-device-plugin-sdk/build/reports/androidTests
-            sudo mv connected DevicePluginSDK-JUnit-Report
-            sudo zip -r DevicePluginSDK-JUnit-Report.zip ./DevicePluginSDK-JUnit-Report
-            cd ../tests
-            sudo mv testDebugUnitTest DevicePluginSDK-Profile-JUnit-Report
-            sudo zip -r DevicePluginSDK-Profile-JUnit-Report.zip ./DevicePluginSDK-Profile-JUnit-Report
-        - name: Archive code coverage results (Android JUnit)
-          if: always()
-          uses: actions/upload-artifact@v1
-          with:
-            name: DevicePluginSDK-JUnit-Report
-            path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/reports/androidTests/DevicePluginSDK-JUnit-Report.zip
-        - name: Archive code coverage results (JUnit)
-          if: always()
-          uses: actions/upload-artifact@v1
-          with:
-            name: DevicePluginSDK-Profile-JUnit-Report
-            path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/reports/tests/DevicePluginSDK-Profile-JUnit-Report.zip
-        - name: Archive DevicePluginSDK-Javadoc
-          if: always()
-          uses: actions/upload-artifact@v1
-          with:
-            name: DevicePluginSDK-Javadoc
-            path: dConnectDevicePlugin/dConnectDevicePluginSDK/DevicePluginSDK-Javadoc.zip
+#     devicepluginsdk:
+#       name: DevicePluginSDK release
+#       runs-on: macos-latest
+#       steps:
+#         - name: Checkout
+#           uses: actions/checkout@v1
+#         - name: Install JDK 1.8
+#           uses: actions/setup-java@v1
+#           with:
+#             java-version: 1.8
+#         - name: Install Android SDK
+#           uses: malinskiy/action-android/install-sdk@release/0.0.5
+#         - name: Build project
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
+#             chmod +x ./gradlew
+#             ./gradlew assembleRelease
+#         - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
+#           with:
+#             cmd: sh device-plugin-sdk-test.sh
+#             api: 28
+#             tag: default
+#             abi: x86
+#             cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -timezone Asia/Tokyo
+#         - name: Test For DevicePluginSDK
+#           if: always()
+#           run: |
+#             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
+#             chmod +x ./gradlew
+#             ./gradlew test
+#             ls dconnect-device-plugin-sdk/build/reports/
+#         - name: Generate Javadoc For DevicePluginSDK
+#           if: always()
+#           run: |
+#             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
+#             ./gradlew generateJavadocForPlugin
+#         - name: Publish AAR
+#           env:
+#             GPR_USER: ${{ secrets.GPR_USER }}
+#             GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+#           run: |
+#             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
+#             chmod +x ./gradlew
+#             ./gradlew assembleRelease publish
+#         - name: Upload aar file
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: Upload dconnect-device-plugin-sdk release aar
+#             path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/outputs/aar/dconnect-device-plugin-sdk-release.aar
+#         - name: Pack test result and document in zip file
+#           if: always()
+#           run: |
+#             cd dConnectDevicePlugin/dConnectDevicePluginSDK/
+#             sudo zip -r DevicePluginSDK-Javadoc.zip ./DevicePluginSDK-Javadoc
+#             cd dconnect-device-plugin-sdk/build/reports/androidTests
+#             sudo mv connected DevicePluginSDK-JUnit-Report
+#             sudo zip -r DevicePluginSDK-JUnit-Report.zip ./DevicePluginSDK-JUnit-Report
+#             cd ../tests
+#             sudo mv testDebugUnitTest DevicePluginSDK-Profile-JUnit-Report
+#             sudo zip -r DevicePluginSDK-Profile-JUnit-Report.zip ./DevicePluginSDK-Profile-JUnit-Report
+#         - name: Archive code coverage results (Android JUnit)
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: DevicePluginSDK-JUnit-Report
+#             path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/reports/androidTests/DevicePluginSDK-JUnit-Report.zip
+#         - name: Archive code coverage results (JUnit)
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: DevicePluginSDK-Profile-JUnit-Report
+#             path: dConnectDevicePlugin/dConnectDevicePluginSDK/dconnect-device-plugin-sdk/build/reports/tests/DevicePluginSDK-Profile-JUnit-Report.zip
+#         - name: Archive DevicePluginSDK-Javadoc
+#           if: always()
+#           uses: actions/upload-artifact@v1
+#           with:
+#             name: DevicePluginSDK-Javadoc
+#             path: dConnectDevicePlugin/dConnectDevicePluginSDK/DevicePluginSDK-Javadoc.zip
   # manager:
   #   name: Manager Release
   #   runs-on: macos-latest
