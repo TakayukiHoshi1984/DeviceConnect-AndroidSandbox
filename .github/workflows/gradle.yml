@@ -57,7 +57,9 @@ jobs:
         - name: Install Environments
           run: |
             cd dConnectSDK/dConnectLibStreaming/libsrt/
-            cd srt-build/data
+            cd srt-build
+            sudo mkdir data
+            cd data
             ls
             sudo apt-get update
             sudo apt-get upgrade
