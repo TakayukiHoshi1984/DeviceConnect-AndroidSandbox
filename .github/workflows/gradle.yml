@@ -52,7 +52,7 @@ jobs:
             cd dConnectSDK/dConnectLibStreaming/
             chmod +x ./gradlew
             cd libmedia
-            ../gradlew assembleRelease
+            ../gradlew build
         - name: Publish AAR
           env:
             GPR_USER: ${{ secrets.GPR_USER }}
