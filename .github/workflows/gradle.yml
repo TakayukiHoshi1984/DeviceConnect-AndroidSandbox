@@ -122,7 +122,7 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v1
           with:
-            name: Upload libmedia release aar
+            name: Upload libsrt release aar
             path: dConnectSDK/dConnectLibStreaming/libsrt/build/outputs/aar/libsrt-release-1.0.0.aar
     demolib:
       name: Demo Lib release
