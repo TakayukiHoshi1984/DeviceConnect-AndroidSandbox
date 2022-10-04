@@ -76,6 +76,7 @@ jobs:
             sudo ./configure --prefix=/usr/local
             sudo make
             sudo make install
+            sudo apt-get install tclsh
             sudo git clone https://github.com/Haivision/srt.git
             ls
             git checkout refs/tags/v1.4.2
