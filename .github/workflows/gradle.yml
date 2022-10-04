@@ -87,6 +87,7 @@ jobs:
             export PATH="/usr/local/bin:$PATH"
             sudo git clone https://github.com/Haivision/srt.git
             ls
+            
             cd srt/docs/Android
             sudo sed -i -e "s|NDK=\/opt\/android-ndk-r19|NDK=$NDK_PATH|g" mkall
             sudo sed -i -e "s|srt_version=1.3.1|srt_version=1.4.2|g" mkall
