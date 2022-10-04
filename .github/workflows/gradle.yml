@@ -78,8 +78,9 @@ jobs:
             sudo make install
             sudo apt-get install tclsh
             sudo git clone https://github.com/Haivision/srt.git
+            cd srt
             sudo git checkout refs/tags/v1.4.2
-            cd srt/docs/Android
+            cd docs/Android
             sudo sed -i -e "s|NDK=\/opt\/android-ndk-r19|NDK=$NDK_PATH|g" mkall
             sudo sed -i -e "s|srt_version=1.3.1|srt_version=1.4.2|g" mkall
             sudo sed -i -e "s|# git -C \$BASE_DIR\/srt checkout v\${srt_version}| git -C \$BASE_DIR\/srt checkout v\${srt_version}|g" mkall
