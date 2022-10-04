@@ -76,18 +76,9 @@ jobs:
             sudo ./configure --prefix=/usr/local
             sudo make
             sudo make install
-            sudo apt install --reinstall build-essential
-            sudo apt-get install tclsh
-            sudo wget https://cmake.org/files/v3.4/cmake-3.4.0-rc3.tar.gz
-            sudo tar xvf cmake-3.4.0-rc3.tar.gz
-            cd cmake-3.4.0-rc3/
-            sudo ./configure
-            sudo make
-            sudo make install
-            export PATH="/usr/local/bin:$PATH"
             sudo git clone https://github.com/Haivision/srt.git
             ls
-            
+            git checkout refs/tags/v1.4.2
             cd srt/docs/Android
             sudo sed -i -e "s|NDK=\/opt\/android-ndk-r19|NDK=$NDK_PATH|g" mkall
             sudo sed -i -e "s|srt_version=1.3.1|srt_version=1.4.2|g" mkall
